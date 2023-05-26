@@ -47,7 +47,7 @@
                                                                     {if $server->node_classification == $classification->classification}                     
                                                                         <div class="col-xl-4">
                                                                             
-                                                                            <div class="d-flex h-100 rounded-3 bg-light bg-opacity-75 align-items-center flex-wrap ribbon ribbon-top" type="button" onclick="KTUsersShowNodeInfo({$server->id}, {$user->class}, {$server->node_class})">
+                                                                            <div class="d-flex h-100 rounded-3 bg-light bg-opacity-75 align-items-center flex-wrap ribbon ribbon-top shadow" type="button" onclick="KTUsersShowNodeInfo({$server->id}, {$user->class}, {$server->node_class})">
                                                                                 {if $user->class >= $server->node_class}
                                                                                     <div class="d-flex ribbon-label bg-success fs-9">
                                                                                         已解锁
