@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-05-10 07:04:16
--- 服务器版本： 10.6.12-MariaDB-0ubuntu0.22.04.1
+-- 生成日期： 2023-05-24 05:43:20
+-- 服务器版本： 10.11.2-MariaDB
 -- PHP 版本： 8.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -76,7 +76,7 @@ CREATE TABLE `coupon` (
   `per_use_count` int(11) DEFAULT NULL COMMENT '每个用户使用次数',
   `expire_at` int(11) NOT NULL COMMENT '到期时间',
   `limited_product` varchar(20) DEFAULT NULL COMMENT '限定产品使用',
-  `limited_product_period` varchar(20) DEFAULT NULL COMMENT '限制产品周期',
+  `limited_product_period` varchar(20) DEFAULT NULL,
   `discount` int(11) NOT NULL COMMENT '折扣比例',
   `total_use_count` int(11) DEFAULT NULL COMMENT '总使用次数'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -182,8 +182,25 @@ CREATE TABLE `node` (
   `node_traffic_limit_reset_date` int(11) NOT NULL DEFAULT 0 COMMENT '节点流量限制重置日期',
   `node_heartbeat` bigint(20) NOT NULL DEFAULT 0,
   `node_ip` varchar(39) DEFAULT NULL COMMENT '节点IP',
-  `node_group` int(11) NOT NULL DEFAULT 0 COMMENT '节点群组',
+  `node_group` varchar(36) NOT NULL DEFAULT '["0"]' COMMENT '节点群组',
+  `node_classification` varchar(36) NOT NULL,
   `online` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `node_classification`
+--
+
+CREATE TABLE `node_classification` (
+  `id` int(11) NOT NULL,
+  `name` varchar(36) NOT NULL,
+  `classification` varchar(36) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `enable` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -238,7 +255,7 @@ CREATE TABLE `order` (
   `paid_time` int(11) DEFAULT NULL COMMENT '订单支付时间',
   `payment_id` int(11) DEFAULT NULL COMMENT '订单支付方式',
   `handling_fee` decimal(12,2) DEFAULT NULL,
-  `bonus_amount` decimal(12,2) DEFAULT NULL COMMENT '充值返利',
+  `bonus_amount` decimal(12,2) DEFAULT NULL,
   `execute_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '执行状态'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -266,15 +283,15 @@ CREATE TABLE `payback` (
 CREATE TABLE `payment` (
   `id` int(11) NOT NULL COMMENT 'id',
   `name` varchar(128) NOT NULL COMMENT '显示名称',
-  `gateway` varchar(128) NOT NULL COMMENT '支付网关',
-  `config` text NOT NULL COMMENT '网关配置文件',
-  `icon` text DEFAULT NULL COMMENT '图标url',
+  `gateway` varchar(128) NOT NULL,
+  `config` text NOT NULL,
+  `icon` varchar(128) DEFAULT NULL COMMENT '图标url',
   `percent_fee` int(11) DEFAULT NULL COMMENT '百分比手续费',
   `fixed_fee` int(11) DEFAULT NULL COMMENT '固定手续费',
-  `recharge_bonus` int(11) DEFAULT NULL COMMENT '充值返利百分比',
+  `recharge_bonus` int(11) DEFAULT NULL COMMENT '充值返利',
   `notify_domain` varchar(128) DEFAULT NULL COMMENT '通知域名',
-  `enable` int(1) NOT NULL DEFAULT 0 COMMENT '开启',
-  `sort` int(11) NOT NULL DEFAULT 0,
+  `enable` int(1) NOT NULL,
+  `sort` int(11) NOT NULL,
   `uuid` varchar(36) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
@@ -304,10 +321,10 @@ CREATE TABLE `product` (
   `type` int(11) NOT NULL DEFAULT 1 COMMENT '产品类型, 1-周期,2-按流量,3-其他商品',
   `sort` int(11) NOT NULL DEFAULT 0 COMMENT '产品排序',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '产品状态 1上架0下架',
-  `renew` tinyint(4) NOT NULL DEFAULT 1 COMMENT '开启续费',
+  `renew` tinyint(4) NOT NULL DEFAULT 1 COMMENT '产品续费',
   `stock` int(11) DEFAULT NULL COMMENT '库存',
   `sales` int(11) NOT NULL DEFAULT 0 COMMENT '销量',
-  `custom_content` longtext DEFAULT NULL COMMENT '自定义商品介绍内容'
+  `custom_content` mediumtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -322,6 +339,20 @@ CREATE TABLE `signin_ip` (
   `ip` varchar(39) NOT NULL,
   `datetime` int(11) NOT NULL,
   `type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `telegram_session`
+--
+
+CREATE TABLE `telegram_session` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `type` int(11) NOT NULL,
+  `session_content` mediumtext NOT NULL,
+  `datetime` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -365,7 +396,7 @@ CREATE TABLE `user` (
   `all_detect_number` int(11) NOT NULL DEFAULT 0 COMMENT '累计违规次数',
   `last_signin_time` datetime DEFAULT NULL COMMENT '最后登录时间',
   `signup_date` datetime NOT NULL COMMENT '注册日期',
-  `money` decimal(12,2) NOT NULL COMMENT '金钱',
+  `money` decimal(12,2) NOT NULL DEFAULT 0.00 COMMENT '金钱',
   `notify_type` varchar(32) DEFAULT NULL COMMENT '接收通知的的方式',
   `ref_by` int(11) NOT NULL DEFAULT 0 COMMENT '推荐人',
   `signup_ip` varchar(39) NOT NULL DEFAULT '127.0.0.1' COMMENT '注册IP',
@@ -399,6 +430,20 @@ CREATE TABLE `user_invite_code` (
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '2016-06-01 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `user_password_reset`
+--
+
+CREATE TABLE `user_password_reset` (
+  `id` int(11) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `token` varchar(50) NOT NULL,
+  `init_time` int(11) NOT NULL,
+  `expire_time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -531,6 +576,12 @@ ALTER TABLE `node`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `node_classification`
+--
+ALTER TABLE `node_classification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `node_info`
 --
 ALTER TABLE `node_info`
@@ -575,6 +626,12 @@ ALTER TABLE `signin_ip`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `telegram_session`
+--
+ALTER TABLE `telegram_session`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `ticket`
 --
 ALTER TABLE `ticket`
@@ -594,6 +651,12 @@ ALTER TABLE `user`
 ALTER TABLE `user_invite_code`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- 表的索引 `user_password_reset`
+--
+ALTER TABLE `user_password_reset`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 表的索引 `user_subscribe_log`
@@ -684,6 +747,12 @@ ALTER TABLE `node`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- 使用表AUTO_INCREMENT `node_classification`
+--
+ALTER TABLE `node_classification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- 使用表AUTO_INCREMENT `node_info`
 --
 ALTER TABLE `node_info`
@@ -726,6 +795,12 @@ ALTER TABLE `signin_ip`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- 使用表AUTO_INCREMENT `telegram_session`
+--
+ALTER TABLE `telegram_session`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- 使用表AUTO_INCREMENT `ticket`
 --
 ALTER TABLE `ticket`
@@ -741,6 +816,12 @@ ALTER TABLE `user`
 -- 使用表AUTO_INCREMENT `user_invite_code`
 --
 ALTER TABLE `user_invite_code`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `user_password_reset`
+--
+ALTER TABLE `user_password_reset`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
