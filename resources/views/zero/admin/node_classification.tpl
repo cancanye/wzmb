@@ -143,6 +143,7 @@
         </script>
         <script>
             function zeroAdminNodeClassificationGetInfo(id) {
+                const submitButton = document.querySelector('[data-kt-admin-create-node-classification-action="submit"]');
                 $.ajax({
                     type: 'POST',
                     url: '/{$config['website_admin_path']}/node_classification/getinfo',

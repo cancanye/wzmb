@@ -15,6 +15,7 @@ final class NodeClassificationController extends AdminController
             'id'             => 'ID',
             'name'           => '名称',
             'classification' => '类别',
+            'sort'           => '排序',
             'action'         => '操作',
         ];
         $table_config['ajax_url'] = 'node_classification/ajax';
@@ -74,6 +75,7 @@ final class NodeClassificationController extends AdminController
                 'id'             => $rowData->id,
                 'name'           => $rowData->name,
                 'classification' => $rowData->classification,
+                'sort'           => $rowData->sort,
                 'action'         => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
                                     <li><a class = "dropdown-item" type = "button" onclick = "zeroAdminNodeClassificationGetInfo(' . $rowData->id . ')">编辑</a></li>
