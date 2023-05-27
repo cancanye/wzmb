@@ -91,7 +91,7 @@
                                                 <div class="card-body">
                                                     <label class="form-label">节点等级</label>
                                                     <input class="form-control mb-5" id="node_class" name="node_class" type="number" placeholder="节点等级" value="{$node->node_class}">
-                                                    <label class="form-label">节点群组</label>
+                                                    <label class="form-label required">节点群组</label>
                                                     <select class="form-select mb-5" id="node_group" data-control="select2" data-placeholder="节点分组" multiple="multiple">
                                                         <option></option>                              
                                                         {foreach $userGroups as $index => $value}
@@ -112,6 +112,7 @@
                                                     </div>
                                                     <label class="form-label required">节点排序</label>
                                                     <input class="form-control mb-5" data-bs-toggle="tooltip" title="数值越大,越靠前" id="node_sort" name="node_sort" type="text" value="{$node->node_sort}" placeholder="节点排序">
+                                                    <label class="form-label required">节点分类</label>
                                                     <select class="form-select" id="node_classification" data-control="select2" data-placeholder="节点分类" data-hide-search="true">
                                                         <option></option>
                                                         {foreach $classifications as $classification}
