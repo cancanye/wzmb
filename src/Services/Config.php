@@ -47,7 +47,9 @@ class Config
             'telegram_channel_id'           => $public_configs['telegram_channel_id'],
             'website_auth_background_image' => $public_configs['website_auth_background_image'],
             'website_admin_path'            => $public_configs['website_admin_path'],
-            'verify_email'                  => $public_configs['verify_email']
+            'verify_email'                  => $public_configs['verify_email'],
+            'enable_user_show_telegram_button'  => $public_configs['enable_user_show_telegram_button'],
+            'enable_user_show_referral_button'  => $public_configs['enable_user_show_referral_button'],
         ];
     }
 

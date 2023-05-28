@@ -329,8 +329,8 @@
                                                             </div>                                                                                              
                                                             <span class="fw-bold text-white fs-h6 mb-8 d-block opacity-75">{$trans->t('ref.content 1')|replace:'ZeroBoard':$config['appName']}{$config['rebate_ratio']}%</span>                                               
                                                             <span class="fw-bold text-white fs-h6 mb-8 d-block opacity-75">{$trans->t('ref.content 2')}</span>                                                                                          
-                                                            <div class="d-flex flex-column flex-sm-row">
-                                                                <a href="JavaScript:;" class="btn btn-success flex-shrink-0 mr-2 fw-bold copy-text" data-clipboard-text="{$invite_url}">{$trans->t('ref.copy')}</a>
+                                                            <div class="d-flex flex-column flex-sm-row">																
+																<button class="btn btn-success flex-shrink-0 mr-2 fw-bold copy-text" {if !$config['enable_user_show_referral_button']}disabled{/if} data-clipboard-text="{$invite_url}">{$trans->t('ref.copy')}</button>					
                                                             </div>                                                
                                                         </div>                                                                                        
                                                         <div class="col-5 pt-10">                                               

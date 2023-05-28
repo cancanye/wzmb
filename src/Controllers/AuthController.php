@@ -67,7 +67,7 @@ class AuthController extends BaseController
                 'msg' => $e->getMessage(),
             ]);
         }
-        Auth::login($user->id, 3600 * 24 * 7);
+        Auth::login($user->id, 3600);
         $user->collectSigninIp($_SERVER['REMOTE_ADDR']);
         
         // 更新用户信息

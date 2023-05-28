@@ -40,6 +40,7 @@
                                                   <button class="nav-link fw-bolder fs-3" id="zero_admin_nav_sell_tab" data-bs-toggle="tab" data-bs-target="#zero_admin_nav_sell" type="button" role="tab" aria-controls="zero_admin_nav_sell" aria-selected="false">销售</button>
                                                   <button class="nav-link fw-bolder fs-3" id="zero_admin_nav_account_tab" data-bs-toggle="tab" data-bs-target="#zero_admin_nav_account" type="button" role="tab" aria-controls="zero_admin_nav_account" aria-selected="false">账户</button>
                                                   <button class="nav-link fw-bolder fs-3" id="zero_admin_nav_referral_tab" data-bs-toggle="tab" data-bs-target="#zero_admin_nav_referral" type="button" role="tab" aria-controls="zero_admin_nav_referral" aria-selected="false">推荐</button>
+                                                  <button class="nav-link fw-bolder fs-3" id="zero_admin_nav_flag_tab" data-bs-toggle="tab" data-bs-target="#zero_admin_nav_flag" type="button" role="tab" aria-controls="zero_admin_nav_flag" aria-selected="false">旗帜</button>
                                                 </div>
                                             </nav>
                                             <div class="tab-content" id="nav-tabContent">
@@ -282,7 +283,12 @@
                                                         <div class="col-xxl-6">
                                                             <div class="card card-bordered">
                                                                 <div class="card-header">
-                                                                    <div class="card-title fw-bold">Telegram 配置</div>
+                                                                    <div class="card-title fw-bold">
+                                                                        <span class="me-3">Telegram 配置</span>
+                                                                        <span class="form-check form-switch ">
+                                                                            <input class="form-check-input" type="checkbox" value="" id="enable_user_show_telegram_button" {if $settings['enable_user_show_telegram_button']}checked{/if} />
+                                                                        </span>
+                                                                    </div>
                                                                     <div class="card-toolbar">
                                                                         <button class="btn btn-light-primary btn-sm" type="button" onclick="updateAdminConfigSettings('telegram')">
                                                                         <i class="bi bi-save"></i>保存配置
@@ -593,7 +599,12 @@
                                                 <div class="tab-pane fade" id="zero_admin_nav_referral" role="tabpanel" aria-labelledby="zero_admin_nav_referral_tab" tabindex="0">
                                                     <div class="card card-bordered">
                                                         <div class="card-header">
-                                                            <div class="card-title fw-bold">模式配置</div>
+                                                            <div class="card-title fw-bold">
+                                                                <span class="me-3">推广配置</span>
+                                                                <span class="form-check form-switch ">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="enable_user_show_referral_button" {if $settings['enable_user_show_referral_button']}checked{/if} />
+                                                                </span>
+                                                            </div>
                                                             <div class="card-toolbar">
                                                                 <button class="btn btn-light-primary btn-sm" type="button" onclick="updateAdminConfigSettings('invite')">
                                                                 <i class="bi bi-save"></i>保存配置
@@ -641,6 +652,21 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="zero_admin_nav_flag" role="tabpanel" aria-labelledby="zero_admin_nav_flag_tab" tabindex="0">
+                                                    <div class="card card-bordered">
+                                                        <div class="card-header">
+                                                            <div class="card-title fw-bold">旗帜配置</div>
+                                                            <div class="card-toolbar">
+                                                                <button class="btn btn-light-primary btn-sm" type="button" onclick="updateAdminConfigSettings('flag')">
+                                                                <i class="bi bi-save"></i>保存配置
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div id="country_flag"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -719,7 +745,18 @@
             const permission_group_editor = new JSONEditor(container, options);
             permission_group_editor.set({$settings['permission_group_detail']})
         </script>
-
+        <script>
+            const containerFlag = document.getElementById('country_flag');
+            var optionsFlag = {
+                mode: 'tree',
+                modes: ['code', 'form', 'text', 'tree', 'view', 'preview'], // allowed modes
+                onModeChange: function (newMode, oldMode) {
+                    console.log('Mode switched from', oldMode, 'to', newMode)
+                }
+            };
+            const country_flag_editor = new JSONEditor(containerFlag, optionsFlag);
+            country_flag_editor.set({$settings['country_flag']})
+    </script>
         <script>
             const containerUser = document.getElementById('user_group_detail');
             var options = {
@@ -948,6 +985,7 @@
                         });
                         break;
                     case 'telegram':
+                        var enable_button = $('#enable_user_show_telegram_button').prop('checked') ? 1 : 0;
                         $.ajax({
                             type: 'POST',
                             url: location.pathname,
@@ -958,6 +996,7 @@
                                 telegram_group_url: $('#telegram_group_url').val(),
                                 telegram_channel_id: $('#telegram_channel_id').val(),
                                 telegram_admin_id: ($('#telegram_admin_id').val().length === 0) ? [""] : $('#telegram_admin_id').val(),
+                                enable_user_show_telegram_button: enable_button
                             },
                             success: function(data){
                                 if (data.ret === 1){
@@ -1129,6 +1168,7 @@
                         });
                         break;
                     case 'invite':
+                    var referral_button = $('#enable_user_show_referral_button').prop('checked') ? 1 : 0;
                         $.ajax({
                             type: 'POST',
                             url: location.pathname,
@@ -1143,6 +1183,25 @@
                                 rebate_amount_limit: $('#rebate_amount_limit').val(),
                                 invitation_to_signup_credit_reward: $('#invitation_to_signup_credit_reward').val(),
                                 invitation_to_signup_traffic_reward: $('#invitation_to_signup_traffic_reward').val(),
+                                enable_user_show_referral_button: referral_button
+                            },
+                            success: function(data){
+                                if (data.ret === 1){
+                                    getResult(data.msg, '', 'success');
+                                }else{
+                                    getResult(data.msg, '', 'error');
+                                }
+                            }
+                        });
+                        break;
+                    case 'flag':
+                        $.ajax({
+                            type: 'POST',
+                            url: location.pathname,
+                            dataType: "json",
+                            data: {
+                                class: type,
+                                country_flag: country_flag_editor.get()
                             },
                             success: function(data){
                                 if (data.ret === 1){

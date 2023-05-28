@@ -48,6 +48,7 @@
                                                                         <div class="col-xl-4">
                                                                             
                                                                             <div class="d-flex h-100 rounded-3 bg-light bg-opacity-75 align-items-center flex-wrap ribbon ribbon-top shadow" type="button" onclick="KTUsersShowNodeInfo({$server->id}, {$user->class}, {$server->node_class})">
+                                                                                
                                                                                 {if $user->class >= $server->node_class}
                                                                                     <div class="d-flex ribbon-label bg-success fs-9">
                                                                                         已解锁
@@ -57,25 +58,26 @@
                                                                                         未解锁
                                                                                     </div>
                                                                                 {/if}
-                                                                                <div class="w-100 px-10 py-5 d-flex flex-warp">                                                      
+                                                                                <div class="w-100 px-10 pt-5 d-flex flex-warp">
+                                                                            <span class="position-absolute translate-middle  badge badge-circle {if $server->online}badge-success{else}badge-danger{/if} w-15px h-15px ms-n4"></span>                                   
                                                                                     <div class="d-flex flex-column">
-                                                                                        <img alt="image" class="rounded-circle shadow" width="35"
+                                                                                    
+                                                                                        <img alt="image" class="rounded-circle shadow" width="40"
                                                                                             src="/theme/zero/assets/media/flags/{$server->node_flag}.svg">
                                                                                     </div>
                                                                                     <div class="d-flex flex-row-fluid flex-column flex-center">
-                                                                                        <span class="fw-bold fs-3">{$server->name}</span>                                                                                       
-                                                                                        
+                                                                                        <span class="fw-bold fs-3">{$server->name}</span>
+                                                                                        {if $server->node_traffic_limit > 0 && $user->is_admin}
+                                                                                            <span><i class="bi bi-activity fs-4 me-1"></i>{$server->nodeUsedTraffic()}/{$server->node_traffic_limit/1024/1024/1024}GB</span>
+                                                                                        {/if}                                                                                    
                                                                                     </div>                             
                                                                                 </div>
-                                                                                <div class="px-10 mb-3 d-flex flex-warp">
+                                                                                <div class="px-10 mb-3 d-flex flex-warp flex-center flex-row-fluid">
                                                                                     <span class="me-2"><i class="bi bi-people fs-4 me-1"></i>{$server->getNodeOnlineUserCount()}</span>
                                                                                     <span class="me-2"><i class="bi bi-lightning-charge fs-4 me-1"></i>{$server->traffic_rate}倍</span>
                                                                                     <span class="me-2"><i class="bi bi-hdd-rack fs-4 me-1"></i>{$server->nodeType()}</span>
                                                                                     {if $user->is_admin}
                                                                                         <span class="me-2"><i class="bi bi-arrow-clockwise me-1"></i>{$server->nodeLoad()}</span>
-                                                                                        {if $server->node_traffic_limit > 0}
-                                                                                            <span><i class="bi bi-activity fs-4 me-1"></i>{$server->nodeUsedTraffic()}/{$server->node_traffic_limit/1024/1024/1024}GB</span>
-                                                                                        {/if}
                                                                                     {/if}
                                                                                 </div>    
                                                                             </div>

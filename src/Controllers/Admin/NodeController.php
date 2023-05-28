@@ -40,9 +40,11 @@ class NodeController extends AdminController
     public function createNodeIndex(ServerRequest $request, Response $response, array $args): Response
     {
         $userGroups = json_decode(Setting::obtain('user_group_detail'), true);
+        $flags = json_decode(Setting::obtain('country_flag'), true);
         $classifications = NodeClassification::all();
         $this->view()
             ->assign('userGroups', $userGroups)
+            ->assign('flags', $flags)
             ->assign('classifications', $classifications)
             ->display('admin/node/create.tpl');
         return $response;
@@ -101,9 +103,11 @@ class NodeController extends AdminController
         $id = $args['id'];
         $node = Node::find($id);
         $userGroups = json_decode(Setting::obtain('user_group_detail'), true);
+        $flags = json_decode(Setting::obtain('country_flag'), true);
         $classifications = NodeClassification::all();
         $this->view()
             ->assign('node', $node)
+            ->assign('flags', $flags)
             ->assign('classifications', $classifications)
             ->assign('userGroups', $userGroups)
             ->display('admin/node/edit.tpl');

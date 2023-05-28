@@ -146,7 +146,8 @@ class SettingController extends AdminController
                     'rebate_ratio', 
                     'rebate_frequency_limit', 
                     'rebate_amount_limit', 
-                    'rebate_time_range_limit'
+                    'rebate_time_range_limit',
+                    'enable_user_show_referral_button'
                 ];
                 break;
             // 提现设置
@@ -179,7 +180,8 @@ class SettingController extends AdminController
                     'telegram_admin_id', 
                     'telegram_group_id', 
                     'telegram_group_url', 
-                    'telegram_channel_id'
+                    'telegram_channel_id',
+                    'enable_user_show_telegram_button'
                 ];
                 break;
             case 'telegram_bot':
@@ -193,7 +195,7 @@ class SettingController extends AdminController
                     'telegram_bot_request_token'
                 ];
                 break;
-            case 'telegram_notify_content';
+            case 'telegram_notify_content':
                 $list = [
                     'diy_system_report_telegram_notify_content', 
                     'diy_system_clean_database_report_telegram_notify_content', 
@@ -201,7 +203,7 @@ class SettingController extends AdminController
                     'diy_system_node_online_report_telegram_notify_content'
                 ];
                 break;
-            case 'subscribe';
+            case 'subscribe':
                 $list = [
                     'subscribe_address_url', 
                     'enable_subscribe_emoji', 
@@ -212,6 +214,11 @@ class SettingController extends AdminController
                     'subscribe_clash_default_profile', 
                     'subscribe_surge_default_profile', 
                     'subscribe_surfboard_default_profile'
+                ];
+                break;
+            case 'flag':
+                $list = [
+                    'country_flag'
                 ];
                 break;
         }

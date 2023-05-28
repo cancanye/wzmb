@@ -372,11 +372,11 @@
     {
         "id": null,
         "item": "limit_email_suffix",
-        "value": "",
+        "value": "[]",
         "class": "register",
         "is_public": 1,
         "type": "array",
-        "default": "",
+        "default": "[]",
         "mark": "限制邮箱后缀"
     },
     {
@@ -511,6 +511,16 @@
     },
     {
         "id": null,
+        "item": "enable_user_show_referral_button",
+        "value": "1",
+        "class": "invite",
+        "is_public": "1",
+        "type": "bool",
+        "default": "1",
+        "mark": "open button"
+    },
+    {
+        "id": null,
         "item": "enable_currency",
         "value": "0",
         "class": "currency",
@@ -611,12 +621,22 @@
     },
     {
         "id": null,
+        "item": "enable_user_show_telegram_button",
+        "value": "0",
+        "class": "telegram",
+        "is_public": 1,
+        "type": "bool",
+        "default": "1",
+        "mark": "open button"
+    },
+    {
+        "id": null,
         "item": "telegram_admin_id",
-        "value": "",
+        "value": "[]",
         "class": "telegram",
         "is_public": 0,
         "type": "array",
-        "default": "",
+        "default": "[]",
         "mark": "管理员ID"
     },
     {
@@ -898,5 +918,15 @@
         "type": "string",
         "default": "admin",
         "mark": "自定义管理员路径"
+    },
+    {
+        "id": null,
+        "item": "country_flag",
+        "value": "{'afghanistan':'\u963f\u5bcc\u6c57','albania':'\u963f\u5c14\u5df4\u5c3c\u4e9a','algeria':'\u963f\u5c14\u53ca\u5229\u4e9a','andorra':'\u5b89\u9053\u5c14','angola':'\u5b89\u54e5\u62c9','antigua-and-barbuda':'\u5b89\u63d0\u74dc\u548c\u5df4\u5e03\u8fbe','argentina':'\u963f\u6839\u5ef7','armenia':'\u4e9a\u7f8e\u5c3c\u4e9a','australia':'\u6fb3\u5927\u5229\u4e9a','austria':'\u5965\u5730\u5229','azerbaijan':'\u963f\u585e\u62dc\u7586','bahamas':'\u5df4\u54c8\u9a6c','bahrain':'\u5df4\u6797','bangladesh':'\u5b5f\u52a0\u62c9\u56fd','barbados':'\u5df4\u5df4\u591a\u65af','belarus':'\u767d\u4fc4\u7f57\u65af','belgium':'\u6bd4\u5229\u65f6','belize':'\u4f2f\u5229\u5179','benin':'\u8d1d\u5b81','bhutan':'\u4e0d\u4e39','bolivia':'\u73bb\u5229\u7ef4\u4e9a','bosnia-and-herzegovina':'\u6ce2\u9ed1','botswana':'\u535a\u8328\u74e6\u7eb3','brazil':'\u5df4\u897f','brunei':'\u6587\u83b1','bulgaria':'\u4fdd\u52a0\u5229\u4e9a','burundi':'\u5e03\u9686\u8fea','cambodia':'\u67ec\u57d4\u5be8','cameroon':'\u5580\u9ea6\u9686','canada':'\u52a0\u62ff\u5927','central-african-republic':'\u4e2d\u975e\u5171\u548c\u56fd','chad':'\u4e4d\u5f97','chile':'\u667a\u5229','china':'\u4e2d\u56fd','colombia':'\u54e5\u4f26\u6bd4\u4e9a','comoros':'\u79d1\u6469\u7f57','costa-rica':'\u54e5\u65af\u8fbe\u9ece\u52a0','croatia':'\u514b\u7f57\u5730\u4e9a','cuba':'\u53e4\u5df4','czech-republic':'\u6377\u514b','denmark':'\u4e39\u9ea6','djibouti':'\u5409\u5e03\u63d0','dominica':'\u591a\u7c73\u5c3c\u514b','dominican-republic':'\u591a\u7c73\u5c3c\u52a0','ecuador':'\u5384\u74dc\u591a\u5c14','egypt':'\u57c3\u53ca','el-salvador':'\u8428\u5c14\u74e6\u591a','equatorial-guinea':'\u8d64\u9053\u51e0\u5185\u4e9a','eritrea':'\u5384\u7acb\u7279\u91cc\u4e9a','estonia':'\u7231\u6c99\u5c3c\u4e9a','ethiopia':'\u57c3\u585e\u4fc4\u6bd4\u4e9a','fiji':'\u6590\u6d4e','finland':'\u82ac\u5170','france':'\u6cd5\u56fd','gabon':'\u52a0\u84ec','gambia':'\u5188\u6bd4\u4e9a','georgia':'\u683c\u9c81\u5409\u4e9a','germany':'\u5fb7\u56fd','ghana':'\u52a0\u7eb3','greece':'\u5e0c\u814a','grenada':'\u683c\u6797\u7eb3\u8fbe','guatemala':'\u5371\u5730\u9a6c\u62c9','guinea':'\u51e0\u5185\u4e9a','haiti':'\u6d77\u5730','honduras':'\u6d2a\u90fd\u62c9\u65af','hungary':'\u5308\u7259\u5229','iceland':'\u51b0\u5c9b','india':'\u5370\u5ea6','indonesia':'\u5370\u5ea6\u5c3c\u897f\u4e9a','iran':'\u4f0a\u6717','iraq':'\u4f0a\u62c9\u514b','ireland':'\u7231\u5c14\u5170','israel':'\u4ee5\u8272\u5217','italy':'\u610f\u5927\u5229','jamaica':'\u7259\u4e70\u52a0','japan':'\u65e5\u672c','jordan':'\u7ea6\u65e6','kazakhstan':'\u54c8\u8428\u514b\u65af\u5766','kenya':'\u80af\u5c3c\u4e9a','kiribati':'\u57fa\u91cc\u5df4\u65af','kosovo':'\u79d1\u7d22\u6c83','kuwait':'\u79d1\u5a01\u7279','kyrgyzstan':'\u5409\u5c14\u5409\u65af\u65af\u5766','laos':'\u8001\u631d','latvia':'\u62c9\u8131\u7ef4\u4e9a','lebanon':'\u9ece\u5df4\u5ae9','lesotho':'\u83b1\u7d22\u6258','liberia':'\u5229\u6bd4\u91cc\u4e9a','libya':'\u5229\u6bd4\u4e9a','liechtenstein':'\u5217\u652f\u6566\u58eb\u767b','lithuania':'\u7acb\u9676\u5b9b','luxembourg':'\u5362\u68ee\u5821','madagascar':'\u9a6c\u8fbe\u52a0\u65af\u52a0','malawi':'\u9a6c\u62c9\u7ef4','malaysia':'\u9a6c\u6765\u897f\u4e9a','maldives':'\u9a6c\u5c14\u4ee3\u592b','mali':'\u9a6c\u91cc','malta':'\u9a6c\u8033\u4ed6','mauritania':'\u6bdb\u91cc\u5854\u5c3c\u4e9a','mauritius':'\u6bdb\u91cc\u6c42\u65af','mexico':'\u58a8\u897f\u54e5','micronesia':'\u5bc6\u514b\u7f57\u5c3c\u897f\u4e9a','moldova':'\u6469\u5c14\u591a\u74e6','monaco':'\u6469\u7eb3\u54e5','mongolia':'\u8499\u53e4\u56fd','montenegro':'\u9ed1\u5c71','morocco':'\u6469\u6d1b\u54e5','mozambique':'\u83ab\u6851\u6bd4\u514b','myanmar':'\u7f05\u7538','namibia':'\u7eb3\u7c73\u6bd4\u4e9a','nauru':'\u7459\u9c81','nepal':'\u5c3c\u6cca\u5c14','netherlands':'\u8377\u5170','new-zealand':'\u65b0\u897f\u5170','nicaragua':'\u5c3c\u52a0\u62c9\u74dc','niger':'\u5c3c\u65e5\u5c14','nigeria':'\u5c3c\u65e5\u5229\u4e9a','north-korea':'\u671d\u9c9c','norway':'\u632a\u5a01','oman':'\u963f\u66fc','pakistan':'\u5df4\u57fa\u65af\u5766','palau':'\u5e15\u52b3','palestine':'\u5df4\u52d2\u65af\u5766','panama':'\u5df4\u62ff\u9a6c','papua-new-guinea':'\u5df4\u5e03\u4e9a\u65b0\u51e0\u5185\u4e9a','paraguay':'\u5df4\u62c9\u572d','peru':'\u79d8\u9c81','philippines':'\u83f2\u5f8b\u5bbe','poland':'\u6ce2\u5170','portugal':'\u8461\u8404\u7259','qatar':'\u5361\u5854\u5c14','romania':'\u7f57\u9a6c\u5c3c\u4e9a','russia':'\u4fc4\u7f57\u65af','rwanda':'\u5362\u65fa\u8fbe','saba-island':'\u8428\u5df4\u5c9b','sahrawi-arab-democratic-republic':'\u6492\u54c8\u62c9\u963f\u62c9\u4f2f\u6c11\u4e3b\u5171\u548c\u56fd','saint-kitts-and-nevis':'\u5723\u57fa\u8328\u548c\u5c3c\u7ef4\u65af','samoa':'\u8428\u6469\u4e9a','san-marino':'\u5723\u9a6c\u529b\u8bfa','sardinia':'\u6492\u4e01\u5c9b','saudi-arabia':'\u6c99\u7279\u963f\u62c9\u4f2f','scotland':'\u82cf\u683c\u5170','senegal':'\u585e\u5185\u52a0\u5c14','serbia':'\u585e\u5c14\u7ef4\u4e9a','seychelles':'\u585e\u820c\u5c14','sierra-leone':'\u585e\u62c9\u5229\u6602','singapore':'\u65b0\u52a0\u5761','sint-maarten':'\u5723\u9a6c\u4e01','slovakia':'\u65af\u6d1b\u4f10\u514b','slovenia':'\u65af\u6d1b\u6587\u5c3c\u4e9a','solomon-islands':'\u6240\u7f57\u95e8\u7fa4\u5c9b','somalia':'\u7d22\u9a6c\u91cc','somaliland':'\u7d22\u9a6c\u91cc\u5170','south-africa':'\u5357\u975e','south-korea':'\u97e9\u56fd','south-sudan':'\u5357\u82cf\u4e39','spain':'\u897f\u73ed\u7259','sudan':'\u82cf\u4e39','suriname':'\u82cf\u91cc\u5357','swaziland':'\u65af\u5a01\u58eb\u5170','sweden':'\u745e\u5178','switzerland':'\u745e\u58eb','syria':'\u53d9\u5229\u4e9a','taiwan':'\u53f0\u6e7e','tajikistan':'\u5854\u5409\u514b\u65af\u5766','tanzania':'\u6cf0\u56fd','tonga':'\u6c64\u52a0','tunisia':'\u7a81\u5c3c\u65af','turkey':'\u571f\u8033\u5176','turkmenistan':'\u571f\u5e93\u66fc\u65af\u5766','uganda':'\u4e4c\u5e72\u8fbe','ukraine':'\u4e4c\u514b\u5170','united-arab-emirates':'\u963f\u62c9\u4f2f\u8054\u5408\u914b\u957f\u56fd','united-kingdom':'\u82f1\u56fd','united-nations':'\u8054\u5408\u56fd','united-states':'\u7f8e\u56fd','uruguay':'\u4e4c\u62c9\u572d','uzbekistan':'\u4e4c\u5179\u522b\u514b\u65af\u5766','vanuatu':'\u74e6\u52aa\u963f\u56fe','vatican-city':'\u68b5\u8482\u5188','venezuela':'\u59d4\u5185\u745e\u62c9','vietnam':'\u8d8a\u5357','wales':'\u5a01\u5c14\u58eb','yemen':'\u4e5f\u95e8','zambia':'\u8d5e\u6bd4\u4e9a','zimbabwe':'\u6d25\u5df4\u5e03\u97e6'}",
+        "class": "flag",
+        "is_public": 0,
+        "type": "array",
+        "default": "{'afghanistan':'\u963f\u5bcc\u6c57','albania':'\u963f\u5c14\u5df4\u5c3c\u4e9a','algeria':'\u963f\u5c14\u53ca\u5229\u4e9a','andorra':'\u5b89\u9053\u5c14','angola':'\u5b89\u54e5\u62c9','antigua-and-barbuda':'\u5b89\u63d0\u74dc\u548c\u5df4\u5e03\u8fbe','argentina':'\u963f\u6839\u5ef7','armenia':'\u4e9a\u7f8e\u5c3c\u4e9a','australia':'\u6fb3\u5927\u5229\u4e9a','austria':'\u5965\u5730\u5229','azerbaijan':'\u963f\u585e\u62dc\u7586','bahamas':'\u5df4\u54c8\u9a6c','bahrain':'\u5df4\u6797','bangladesh':'\u5b5f\u52a0\u62c9\u56fd','barbados':'\u5df4\u5df4\u591a\u65af','belarus':'\u767d\u4fc4\u7f57\u65af','belgium':'\u6bd4\u5229\u65f6','belize':'\u4f2f\u5229\u5179','benin':'\u8d1d\u5b81','bhutan':'\u4e0d\u4e39','bolivia':'\u73bb\u5229\u7ef4\u4e9a','bosnia-and-herzegovina':'\u6ce2\u9ed1','botswana':'\u535a\u8328\u74e6\u7eb3','brazil':'\u5df4\u897f','brunei':'\u6587\u83b1','bulgaria':'\u4fdd\u52a0\u5229\u4e9a','burundi':'\u5e03\u9686\u8fea','cambodia':'\u67ec\u57d4\u5be8','cameroon':'\u5580\u9ea6\u9686','canada':'\u52a0\u62ff\u5927','central-african-republic':'\u4e2d\u975e\u5171\u548c\u56fd','chad':'\u4e4d\u5f97','chile':'\u667a\u5229','china':'\u4e2d\u56fd','colombia':'\u54e5\u4f26\u6bd4\u4e9a','comoros':'\u79d1\u6469\u7f57','costa-rica':'\u54e5\u65af\u8fbe\u9ece\u52a0','croatia':'\u514b\u7f57\u5730\u4e9a','cuba':'\u53e4\u5df4','czech-republic':'\u6377\u514b','denmark':'\u4e39\u9ea6','djibouti':'\u5409\u5e03\u63d0','dominica':'\u591a\u7c73\u5c3c\u514b','dominican-republic':'\u591a\u7c73\u5c3c\u52a0','ecuador':'\u5384\u74dc\u591a\u5c14','egypt':'\u57c3\u53ca','el-salvador':'\u8428\u5c14\u74e6\u591a','equatorial-guinea':'\u8d64\u9053\u51e0\u5185\u4e9a','eritrea':'\u5384\u7acb\u7279\u91cc\u4e9a','estonia':'\u7231\u6c99\u5c3c\u4e9a','ethiopia':'\u57c3\u585e\u4fc4\u6bd4\u4e9a','fiji':'\u6590\u6d4e','finland':'\u82ac\u5170','france':'\u6cd5\u56fd','gabon':'\u52a0\u84ec','gambia':'\u5188\u6bd4\u4e9a','georgia':'\u683c\u9c81\u5409\u4e9a','germany':'\u5fb7\u56fd','ghana':'\u52a0\u7eb3','greece':'\u5e0c\u814a','grenada':'\u683c\u6797\u7eb3\u8fbe','guatemala':'\u5371\u5730\u9a6c\u62c9','guinea':'\u51e0\u5185\u4e9a','haiti':'\u6d77\u5730','honduras':'\u6d2a\u90fd\u62c9\u65af','hungary':'\u5308\u7259\u5229','iceland':'\u51b0\u5c9b','india':'\u5370\u5ea6','indonesia':'\u5370\u5ea6\u5c3c\u897f\u4e9a','iran':'\u4f0a\u6717','iraq':'\u4f0a\u62c9\u514b','ireland':'\u7231\u5c14\u5170','israel':'\u4ee5\u8272\u5217','italy':'\u610f\u5927\u5229','jamaica':'\u7259\u4e70\u52a0','japan':'\u65e5\u672c','jordan':'\u7ea6\u65e6','kazakhstan':'\u54c8\u8428\u514b\u65af\u5766','kenya':'\u80af\u5c3c\u4e9a','kiribati':'\u57fa\u91cc\u5df4\u65af','kosovo':'\u79d1\u7d22\u6c83','kuwait':'\u79d1\u5a01\u7279','kyrgyzstan':'\u5409\u5c14\u5409\u65af\u65af\u5766','laos':'\u8001\u631d','latvia':'\u62c9\u8131\u7ef4\u4e9a','lebanon':'\u9ece\u5df4\u5ae9','lesotho':'\u83b1\u7d22\u6258','liberia':'\u5229\u6bd4\u91cc\u4e9a','libya':'\u5229\u6bd4\u4e9a','liechtenstein':'\u5217\u652f\u6566\u58eb\u767b','lithuania':'\u7acb\u9676\u5b9b','luxembourg':'\u5362\u68ee\u5821','madagascar':'\u9a6c\u8fbe\u52a0\u65af\u52a0','malawi':'\u9a6c\u62c9\u7ef4','malaysia':'\u9a6c\u6765\u897f\u4e9a','maldives':'\u9a6c\u5c14\u4ee3\u592b','mali':'\u9a6c\u91cc','malta':'\u9a6c\u8033\u4ed6','mauritania':'\u6bdb\u91cc\u5854\u5c3c\u4e9a','mauritius':'\u6bdb\u91cc\u6c42\u65af','mexico':'\u58a8\u897f\u54e5','micronesia':'\u5bc6\u514b\u7f57\u5c3c\u897f\u4e9a','moldova':'\u6469\u5c14\u591a\u74e6','monaco':'\u6469\u7eb3\u54e5','mongolia':'\u8499\u53e4\u56fd','montenegro':'\u9ed1\u5c71','morocco':'\u6469\u6d1b\u54e5','mozambique':'\u83ab\u6851\u6bd4\u514b','myanmar':'\u7f05\u7538','namibia':'\u7eb3\u7c73\u6bd4\u4e9a','nauru':'\u7459\u9c81','nepal':'\u5c3c\u6cca\u5c14','netherlands':'\u8377\u5170','new-zealand':'\u65b0\u897f\u5170','nicaragua':'\u5c3c\u52a0\u62c9\u74dc','niger':'\u5c3c\u65e5\u5c14','nigeria':'\u5c3c\u65e5\u5229\u4e9a','north-korea':'\u671d\u9c9c','norway':'\u632a\u5a01','oman':'\u963f\u66fc','pakistan':'\u5df4\u57fa\u65af\u5766','palau':'\u5e15\u52b3','palestine':'\u5df4\u52d2\u65af\u5766','panama':'\u5df4\u62ff\u9a6c','papua-new-guinea':'\u5df4\u5e03\u4e9a\u65b0\u51e0\u5185\u4e9a','paraguay':'\u5df4\u62c9\u572d','peru':'\u79d8\u9c81','philippines':'\u83f2\u5f8b\u5bbe','poland':'\u6ce2\u5170','portugal':'\u8461\u8404\u7259','qatar':'\u5361\u5854\u5c14','romania':'\u7f57\u9a6c\u5c3c\u4e9a','russia':'\u4fc4\u7f57\u65af','rwanda':'\u5362\u65fa\u8fbe','saba-island':'\u8428\u5df4\u5c9b','sahrawi-arab-democratic-republic':'\u6492\u54c8\u62c9\u963f\u62c9\u4f2f\u6c11\u4e3b\u5171\u548c\u56fd','saint-kitts-and-nevis':'\u5723\u57fa\u8328\u548c\u5c3c\u7ef4\u65af','samoa':'\u8428\u6469\u4e9a','san-marino':'\u5723\u9a6c\u529b\u8bfa','sardinia':'\u6492\u4e01\u5c9b','saudi-arabia':'\u6c99\u7279\u963f\u62c9\u4f2f','scotland':'\u82cf\u683c\u5170','senegal':'\u585e\u5185\u52a0\u5c14','serbia':'\u585e\u5c14\u7ef4\u4e9a','seychelles':'\u585e\u820c\u5c14','sierra-leone':'\u585e\u62c9\u5229\u6602','singapore':'\u65b0\u52a0\u5761','sint-maarten':'\u5723\u9a6c\u4e01','slovakia':'\u65af\u6d1b\u4f10\u514b','slovenia':'\u65af\u6d1b\u6587\u5c3c\u4e9a','solomon-islands':'\u6240\u7f57\u95e8\u7fa4\u5c9b','somalia':'\u7d22\u9a6c\u91cc','somaliland':'\u7d22\u9a6c\u91cc\u5170','south-africa':'\u5357\u975e','south-korea':'\u97e9\u56fd','south-sudan':'\u5357\u82cf\u4e39','spain':'\u897f\u73ed\u7259','sudan':'\u82cf\u4e39','suriname':'\u82cf\u91cc\u5357','swaziland':'\u65af\u5a01\u58eb\u5170','sweden':'\u745e\u5178','switzerland':'\u745e\u58eb','syria':'\u53d9\u5229\u4e9a','taiwan':'\u53f0\u6e7e','tajikistan':'\u5854\u5409\u514b\u65af\u5766','tanzania':'\u6cf0\u56fd','tonga':'\u6c64\u52a0','tunisia':'\u7a81\u5c3c\u65af','turkey':'\u571f\u8033\u5176','turkmenistan':'\u571f\u5e93\u66fc\u65af\u5766','uganda':'\u4e4c\u5e72\u8fbe','ukraine':'\u4e4c\u514b\u5170','united-arab-emirates':'\u963f\u62c9\u4f2f\u8054\u5408\u914b\u957f\u56fd','united-kingdom':'\u82f1\u56fd','united-nations':'\u8054\u5408\u56fd','united-states':'\u7f8e\u56fd','uruguay':'\u4e4c\u62c9\u572d','uzbekistan':'\u4e4c\u5179\u522b\u514b\u65af\u5766','vanuatu':'\u74e6\u52aa\u963f\u56fe','vatican-city':'\u68b5\u8482\u5188','venezuela':'\u59d4\u5185\u745e\u62c9','vietnam':'\u8d8a\u5357','wales':'\u5a01\u5c14\u58eb','yemen':'\u4e5f\u95e8','zambia':'\u8d5e\u6bd4\u4e9a','zimbabwe':'\u6d25\u5df4\u5e03\u97e6'}",
+        "mark": "flag"
     }
 ]

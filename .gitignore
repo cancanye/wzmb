@@ -16,7 +16,6 @@ composer.phar
 index.html
 
 config/.config.php
-config/.config.php.bak
 config/.zeroconfig.php
 config/appprofile.php
 config/ClientDownloadVersion.json
