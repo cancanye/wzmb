@@ -38,6 +38,17 @@ class Node extends Model
         return $status;
     }
 
+    public function nodeGroup()
+    {
+        $groups = json_decode(Setting::obtain('user_group_detail'), true);
+        $node_groups = json_decode($this->node_group, true);
+        $node_group = [];
+        foreach ($node_groups as $value) {
+            $node_group[] = $groups[$value];
+        }
+        return $node_group;
+    }
+
     /**
      * 节点类型
      */
