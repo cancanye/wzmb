@@ -18,7 +18,9 @@ final class ProductController extends BaseController
     public function productIndex(ServerRequest $request, Response $response, array $args)
     {
         $trans = I18n::get();
+        $user = $this->user;
         $products = Product::where('status', '1')
+            ->where('user_group', '=', $user->node_group)
             ->orderBy('sort', 'desc')
             ->get();
         $product_tab_lists = [
@@ -41,7 +43,9 @@ final class ProductController extends BaseController
             2 => $trans->t('traffic'),
             3 => $trans->t('other'),
         ];
-        $all_products = Product::where('status', '1')->get();
+        $all_products = Product::where('status', '1')
+            ->where('user_group', '=', $user->node_group)
+            ->get();
         $count = [
             1 => $all_products->where('type', 1)->count(),
             2 => $all_products->where('type', 2)->count(),

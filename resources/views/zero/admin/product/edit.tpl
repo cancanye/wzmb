@@ -99,7 +99,11 @@
                                                     <label class="form-label required">产品排序</label>
                                                     <input class="form-control mb-5" data-bs-toggle="tooltip" title="数值越大,越靠前" id="sort" name="sort" type="number" placeholder="产品排序" value="{$product->sort}">
                                                     <label class="form-label">产品群组</label>
-                                                    <input class="form-control" data-bs-toggle="tooltip" title="不分组保持默认" id="group" name="group" type="number" placeholder="不分组保持默认" value="{$product->user_group}">
+                                                    <select class="form-select mb-5" id="group" data-control="select2" data-placeholder="分组" data-hide-search="true">
+                                                        {foreach $groups as $group => $value}
+                                                            <option value="{$group}">{$value}</option>
+                                                        {/foreach}
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>  
@@ -172,6 +176,7 @@
         <script>
             $('#type').val("{$product->type}").trigger('change');
             $('#reset').val("{$product->reset_traffic_cycle}").trigger('change');
+            $('#group').val("{$product->user_group}").trigger('change');
         </script>
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\AdminController;
 use App\Models\Product;
+use App\Models\Setting;
 use Slim\Http\Response;
 use Slim\Http\ServerRequest;
 
@@ -18,6 +19,7 @@ class ProductController extends AdminController
             'type'      => '产品类型',
             'sales'     => '周期销量',
             'status'    => '状态',
+            'user_group'    => '分组',
             'renew'     => '续费 <i class="bi bi-question-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="在商品停止销售时，已购用户是否可以续费"></i>',
             'action'    => '操作'
         ];
@@ -31,7 +33,10 @@ class ProductController extends AdminController
 
     public function createProductIndex(ServerRequest $request, Response $response, array $args): Response
     {
-        $this->view()->display('admin/product/create.tpl');
+        $groups = json_decode(Setting::obtain('user_group_detail'), true);
+        $this->view()
+            ->assign('groups', $groups)
+            ->display('admin/product/create.tpl');
         return $response;
     }
 
@@ -73,8 +78,10 @@ class ProductController extends AdminController
     {
         $id = $args['id'];
         $product = Product::find($id);
+        $groups = json_decode(Setting::obtain('user_group_detail'), true);
         $this->view()
             ->assign('product', $product)
+            ->assign('groups', $groups)
             ->display('admin/product/edit.tpl');
         return $response;
     }
@@ -135,6 +142,7 @@ class ProductController extends AdminController
                 'type'   => $rowData->type(),
                 'sales'  => $rowData->cumulativeSales(),
                 'status' => $rowData->status(),
+                'user_group' => $rowData->userGroup(),
                 'renew'  => $rowData->renew(),
                 'action' => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">

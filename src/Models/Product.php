@@ -83,7 +83,7 @@ class Product extends Model
                         $user->class           = $this->class;
                         $user->node_speedlimit = $this->speed_limit ?? 0;
                         $user->node_iplimit    = $this->ip_limit ?? 0;
-                        $user->node_group      = $this->user_group;
+                        //$user->node_group      = $this->user_group;
                         $user->product_id      = $this->id;
                         if ($this->reset_traffic_cycle === 1) { //订单日充值
                             $user->reset_traffic_date  = date('d');
@@ -173,5 +173,12 @@ class Product extends Model
     public function realTimeSales() {
         $sales = User::where('product_id', $this->id)->where('class', $this->class)->count() ?: 0;
         return $sales;
+    }
+
+    public function userGroup()
+    {
+        $user_groups = json_decode(Setting::obtain('user_group_detail'));
+        $product_group = $user_groups[$this->user_group];
+        return $product_group;
     }
 }

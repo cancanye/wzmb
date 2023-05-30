@@ -73,7 +73,7 @@
                                                     <label class="form-label required">邀请人ID</label>
                                                     <input class="form-control mb-5" id="ref_by" name="ref_by" type="number" disabled value="{$user->ref_by}">
                                                     <label class="form-label required">用户群组</label>
-                                                    <select class="form-select mb-5" id="group" data-control="select2" data-placeholder="用户分组" data-hide-search="true" />
+                                                    <select class="form-select mb-5" id="group" data-control="select2" data-placeholder="用户分组" data-hide-search="true">
                                                         <option></option>                              
                                                         {foreach $user_groups as $index => $value}
                                                             <option value="{$index}">{$value}</option>
