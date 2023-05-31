@@ -40,12 +40,15 @@
                                         </div>
                                         <div class="card-body row g-5">
                                             <div class="col-xxl-4">
+                                                <span class="fw-bold fs-3">配置 1</span>
                                                 <div id="custom_config_1"></div>
                                             </div>
                                             <div class="col-xxl-4">
+                                                <span class="fw-bold fs-3">配置 2</span>
                                                 <div id="custom_config_2"></div>
                                             </div>
                                             <div class="col-xxl-4">
+                                                <span class="fw-bold fs-3">配置 3</span>
                                                 <div id="custom_config_3"></div>
                                             </div>
                                         </div>
