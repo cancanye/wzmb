@@ -64,7 +64,7 @@ class NodeController extends BaseController
             'traffic_rate'    => $node->traffic_rate,
             'sort'            => $node->node_type,
             'server'          => $node_server,
-            'custom_config'   => json_decode($node->custom_config, true, JSON_UNESCAPED_SLASHES),
+            'custom_config'   => json_decode($node->activeCustomConfig(), true, JSON_UNESCAPED_SLASHES),
             'type'            => 'SSPanel-UIM',
             'version'         => '2023-3-1'
         ];

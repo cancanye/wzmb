@@ -49,6 +49,103 @@ class Node extends Model
         return $node_group;
     }
 
+    public function activeCustomConfigHtml()
+    {
+        $config2 = is_array($this->custom_config_2) ? 1 : 0;
+        $config3 = is_array($this->custom_config_3) ? 1 : 0;
+        $active_config = $this->active_custom_config;
+        switch ($active_config) {
+            case 1:
+                $html = '
+                        <div class="d-flex">
+                        <div class="form-check form-check-sm me-2">
+                            <input class="form-check-input" type="checkbox" value="" checked />
+                            <label class="form-check-label fs-bold">
+                            1
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm me-2">
+                            <input class="form-check-input" type="checkbox" value="" onclick="switchActiveCustomConfig(2, '.$this->id.')" />
+                            <label class="form-check-label fs-bold">
+                            2
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm">
+                            <input class="form-check-input" type="checkbox" value="" onclick="switchActiveCustomConfig(3, '.$this->id.')" />
+                            <label class="form-check-label fs-bold">
+                            3
+                            </label>
+                        </div>
+                        </div>';
+                break;
+            case 2:
+                $html = '
+                        <div class="d-flex">
+                        <div class="form-check form-check-sm me-2">
+                            <input class="form-check-input" type="checkbox" value="" onclick="switchActiveCustomConfig(1, '.$this->id.')" />
+                            <label class="form-check-label fs-bold">
+                            1
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm me-2">
+                            <input class="form-check-input" type="checkbox" value="" checked/>
+                            <label class="form-check-label fs-bold">
+                            2
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm">
+                            <input class="form-check-input" type="checkbox" value="" onclick="switchActiveCustomConfig(3, '.$this->id.')" />
+                            <label class="form-check-label fs-bold">
+                            3
+                            </label>
+                        </div>
+                        </div>';
+                break;
+            case 3:
+                $html = '
+                        <div class="d-flex">
+                        <div class="form-check form-check-sm me-2">
+                            <input class="form-check-input" type="checkbox" value="" onclick="switchActiveCustomConfig(1, '.$this->id.')" />
+                            <label class="form-check-label fs-bold">
+                            1
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm me-2">
+                            <input class="form-check-input" type="checkbox" value="" onclick="switchActiveCustomConfig(2, '.$this->id.')" />
+                            <label class="form-check-label fs-bold">
+                            2
+                            </label>
+                        </div>
+                        <div class="form-check form-check-sm">
+                            <input class="form-check-input" type="checkbox" value=""  checked/>
+                            <label class="form-check-label fs-bold">
+                            3
+                            </label>
+                        </div>
+                        </div>';
+                break;
+        }
+
+        return $html;
+    }
+
+    public function activeCustomConfig()
+    {
+        switch ($this->active_custom_config) {
+            case 1: 
+                $custom_config = $this->custom_config;
+                break;
+            case 2:
+                $custom_config = $this->custom_config_2;
+                break;
+            case 3:
+                $custom_config = $this->custom_config_3;
+                break;
+        }
+        
+        return $custom_config;
+    }
+
     /**
      * 节点类型
      */
@@ -147,7 +244,7 @@ class Node extends Model
         $config['passwd']     = $user->passwd;
         $config['server_psk'] = $custom_configs['server_psk'] ?? '';
         $config['method']     = $custom_configs['mu_encryption'];
-        $config['address']    = $this->server;
+        $config['address']    = $custom_configs['server_sub'] ?? $this->server;
         $config['port']       = $custom_configs['offset_port_user'] ?? $custom_configs['mu_port'];
         $config['class']      = $this->node_class;
 
@@ -165,7 +262,7 @@ class Node extends Model
         $config['remark']      = $emoji ? $this->getNodeFlag($this->node_flag) . $this->name : $this->name;
         $config['uuid']        = $user->uuid;
         $config['class']       = $this->node_class;
-        $config['address']     = $this->server;
+        $config['address']     = $custom_configs['server_sub'] ?? $this->server;
         $config['port']        = $custom_configs['offset_port_user'] ?? $custom_configs['v2_port'];
         $config['aid']         = $custom_configs['alter_id'];
         $config['net']         = $custom_configs['network'];
@@ -190,7 +287,7 @@ class Node extends Model
         $config['remark']      = $emoji ? $this->getNodeFlag($this->node_flag) . $this->name : $this->name;
         $config['uuid']        = $user->uuid;
         $config['class']       = $this->node_class;
-        $config['address']     = $this->server;
+        $config['address']     = $custom_configs['server_sub'] ?? $this->server;
         $config['port']        = $custom_configs['offset_port_user'] ?? $custom_configs['v2_port'];
         $config['aid']         = $custom_configs['alter_id'];
         $config['net']         = $custom_configs['network'];
@@ -214,7 +311,7 @@ class Node extends Model
         $config['remark']   = $emoji ? $this->getNodeFlag($this->node_flag) . $this->name : $this->name;
         $config['type']     = 'trojan';
         $config['uuid']     = $user->uuid;
-        $config['address']  = $this->server;
+        $config['address']  = $custom_configs['server_sub'] ?? $this->server;
         $config['port']     = $custom_configs['offset_port_user'] ?? $custom_configs['trojan_port'];
         $config['sni']      = $custom_configs['host'] ?? '';
         $config['security'] = $custom_configs['security'] ?? 'tls';

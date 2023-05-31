@@ -128,6 +128,7 @@ return function (SlimApp $app) {
             $node->delete('/delete',              NodeController::class . ':deleteNode');
             $node->post('/ajax',                  NodeController::class . ':nodeAjax');
             $node->put('/update/status',          NodeController::class . ':updateNodeStatus');
+            $node->put('/update/active_custom_config',          NodeController::class . ':updateNodeActiveCustomConfig');
         });
 
         //ticket

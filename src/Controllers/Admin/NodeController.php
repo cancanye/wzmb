@@ -28,6 +28,7 @@ class NodeController extends AdminController
             'node_speedlimit'         => '速度',
             'node_group'              => '分组',
             'status'                  => '显示与隐藏',
+            'active_custom_config'    => '激活配置',
             'action'                  => '操作',
         ];
         $table_config['ajax_url'] = 'node/ajax';
@@ -65,10 +66,22 @@ class NodeController extends AdminController
         $node->node_type           = $postData['node_type'];
         $node->node_classification = $postData['node_classification'];
 
-        if (!is_null($postData['custom_config'])) {
-            $node->custom_config = json_encode($postData['custom_config']);
+        if (!is_null($postData['custom_config_1'])) {
+            $node->custom_config = json_encode($postData['custom_config_1']);
         } else {
             $node->custom_config = '{}';
+        }
+
+        if (!is_null($postData['custom_config_2'])) {
+            $node->custom_config_2 = json_encode($postData['custom_config_2']);
+        } else {
+            $node->custom_config_2 = '{}';
+        }
+
+        if (!is_null($postData['custom_config_3'])) {
+            $node->custom_config_3 = json_encode($postData['custom_config_3']);
+        } else {
+            $node->custom_config_3 = '{}';
         }
         
         $req_node_ip = trim($postData['node_ip']);
@@ -128,10 +141,22 @@ class NodeController extends AdminController
         $node->node_type           = $putData['node_type'];
         $node->node_classification = $putData['node_classification'];
 
-        if (!is_null($putData['custom_config'])) {
-            $node->custom_config = json_encode($putData['custom_config']);
+        if (is_array($putData['custom_config_1'])) {
+            $node->custom_config = json_encode($putData['custom_config_1']);
         } else {
             $node->custom_config = '{}';
+        }
+
+        if (is_array($putData['custom_config_2'])) {
+            $node->custom_config_2 = json_encode($putData['custom_config_2']);
+        } else {
+            $node->custom_config_2 = '{}';
+        }
+
+        if (is_array($putData['custom_config_3'])) {
+            $node->custom_config_3 = json_encode($putData['custom_config_3']);
+        } else {
+            $node->custom_config_3 = '{}';
         }
         
         $req_node_ip = trim($putData['node_ip']);
@@ -190,6 +215,7 @@ class NodeController extends AdminController
                 'node_speedlimit' => $rowData->node_speedlimit == 0 ? '无限制' : $rowData->node_speedlimit,
                 'node_group'      => $rowData->nodeGroup(),
                 'status'          => $rowData->status(),
+                'active_custom_config' => $rowData->activeCustomConfigHtml(),
                 'action'          => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
                                     <li><a class = "dropdown-item" href = "node/update/'.$rowData->id.'">编辑</a></li>
@@ -231,4 +257,15 @@ class NodeController extends AdminController
         ]);
     }
 
+    public function updateNodeActiveCustomConfig(ServerRequest $request, Response $response, array $args): Response
+    {
+        $node = Node::find($request->getParsedBodyParam('node_id'));
+        $node->active_custom_config = $request->getParsedBodyParam('config_id');
+        $node->save();
+
+        return $response->withJson([
+            'ret'   => 1,
+            'msg'   => 'success'
+        ]);
+    }
 }

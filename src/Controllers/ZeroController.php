@@ -177,7 +177,7 @@ class ZeroController extends BaseController
 
         switch ($node->node_type) {
             case '1':
-                $info = $node->getShadowsocksConfig($user, $node->custom_config);
+                $info = $node->getShadowsocksConfig($user, $node->activeCustomConfig());
                 $res = [
                     'ret'  => 1,
                     'type' => 1,
@@ -186,7 +186,7 @@ class ZeroController extends BaseController
                 ];
                 break;
             case '2':
-                $info = $node->getVmessConfig($user, $node->custom_config);
+                $info = $node->getVmessConfig($user, $node->activeCustomConfig());
                 $res  = [
                     'ret'  => 1,
                     'type' => 2,
@@ -195,7 +195,7 @@ class ZeroController extends BaseController
                 ];
                 break;
             case '3': 
-                $info = $node->getVlessConfig($user, $node->custom_config);
+                $info = $node->getVlessConfig($user, $node->activeCustomConfig());
                 $res  = [
                     'ret'  => 1,
                     'type' => 3,
@@ -204,7 +204,7 @@ class ZeroController extends BaseController
                 ];
                 break;
             case '4': 
-                $info = $node->getTrojanConfig($user, $node->custom_config);
+                $info = $node->getTrojanConfig($user, $node->activeCustomConfig());
                 $res  = [
                     'ret'  => 1,
                     'type' => 4,

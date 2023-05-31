@@ -38,8 +38,16 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div id="custom_config"></div>
+                                        <div class="card-body row g-5">
+                                            <div class="col-xxl-4">
+                                                <div id="custom_config_1"></div>
+                                            </div>
+                                            <div class="col-xxl-4">
+                                                <div id="custom_config_2"></div>
+                                            </div>
+                                            <div class="col-xxl-4">
+                                                <div id="custom_config_3"></div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row g-5">
@@ -118,16 +126,40 @@
         </div>
         {include file='admin/script.tpl'}
         <script>
-            const container = document.getElementById('custom_config');
-            var options = {
+            const container_1 = document.getElementById('custom_config_1');
+            var options_1 = {
                 mode: 'text',
                 modes: ['code', 'form', 'text', 'tree', 'view', 'preview'], // allowed modes
                 onModeChange: function (newMode, oldMode) {
                     console.log('Mode switched from', oldMode, 'to', newMode)
                 }
             };
-            const editor = new JSONEditor(container, options);
-            editor.set({$node->custom_config})
+            const editor_1 = new JSONEditor(container_1, options_1);
+            editor_1.set({$node->custom_config});
+
+            // config2
+            const container_2 = document.getElementById('custom_config_2');
+            var options_2 = {
+                mode: 'text',
+                modes: ['code', 'form', 'text', 'tree', 'view', 'preview'], // allowed modes
+                onModeChange: function (newMode, oldMode) {
+                    console.log('Mode switched from', oldMode, 'to', newMode)
+                }
+            };
+            const editor_2 = new JSONEditor(container_2, options_2);
+            editor_2.set({$node->custom_config_2});
+
+            // config 3
+            const container_3 = document.getElementById('custom_config_3');
+            var options_3 = {
+                mode: 'text',
+                modes: ['code', 'form', 'text', 'tree', 'view', 'preview'], // allowed modes
+                onModeChange: function (newMode, oldMode) {
+                    console.log('Mode switched from', oldMode, 'to', newMode)
+                }
+            };
+            const editor_3 = new JSONEditor(container_3, options_3);
+            editor_3.set({$node->custom_config_3});
         </script>
         <script>
             function zeroAdminUpdateNode(id) {
@@ -150,7 +182,9 @@
                         node_traffic_limit_reset_date: $('#node_traffic_limit_reset_date').val(),
                         node_speedlimit: $('#node_speedlimit').val(),
                         node_sort: $('#node_sort').val(),
-                        custom_config: editor.get(),
+                        custom_config_1: editor_1.get(),
+                        custom_config_2: (Object.keys(editor_2.get()).length === 0) ? '{}' : editor_2.get(),
+                        custom_config_3: (Object.keys(editor_3.get()).length === 0) ? '{}' : editor_3.get()
                     },
                     success: function(data){
                         if(data.ret === 1) {

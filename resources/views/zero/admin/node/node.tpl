@@ -89,4 +89,20 @@
             table_1.search(e.target.value).draw();
         });
     </script>
+    <script>
+        function switchActiveCustomConfig(config_id, node_id) {
+            $.ajax({
+                type: "PUT",
+                url: "/{$config['website_admin_path']}/node/update/active_custom_config",
+                dataType: "JSON",
+                data: {
+                    config_id,
+                    node_id
+                },
+                success: function(data){
+                    table_1.ajax.reload();
+                }
+            });
+        }
+    </script>
 </html>

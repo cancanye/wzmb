@@ -104,7 +104,7 @@ class URL
                     4 => 'getTrojanConfig',          // Trojan
                     3 => 'getVlessConfig'
                 ];
-                $custom_config = $node->custom_config;
+                $custom_config = $node->activeCustomConfig();
                 $type = $node_type[$node->node_type];
                 $item = $node->$type($user, $custom_config, $emoji);
                 if (!is_null($item)) {
@@ -142,7 +142,7 @@ class URL
      */
     public static function getShadowsocksURL(User $user, Node $node, bool $emoji = false): string
     {
-        $node_config = $node->getShadowsocksConfig($user, $node->custom_config, $emoji);
+        $node_config = $node->getShadowsocksConfig($user, $node->activeCustomConfig(), $emoji);
         $ip_type = Tools::isIP($node_config['address']);
         $address = ($ip_type === 'v6' ? '[%s]' : '%s');              
         if (Node::getShadowsocksSupportMethod($node_config['method'])) {                   
@@ -171,7 +171,7 @@ class URL
      */
     public static function getVmessURL(User $user, Node $node, bool $emoji = false): string
     {
-        $node_config = $node->getVmessConfig($user, $node->custom_config, $emoji);
+        $node_config = $node->getVmessConfig($user, $node->activeCustomConfig(), $emoji);
         $url= sprintf(
             'vmess://%s@%s:%d?encryption=auto&host=%s&path=%s&flow=%s&security=%s&sni=%s&serviceName=%s&headerType=%s&type=%s#%s',
             $node_config['uuid'],
@@ -195,7 +195,7 @@ class URL
      */
     public static function getVlessURL(User $user, Node $node, bool $emoji = false): string
     {
-        $node_config = $node->getVlessConfig($user, $node->custom_config, $emoji);
+        $node_config = $node->getVlessConfig($user, $node->activeCustomConfig(), $emoji);
 
         $url= sprintf(
             'vmess://%s@%s:%d?encryption=none&host=%s&path=%s&flow=%s&security=%s&sni=%s&serviceName=%s&headerType=%s&type=%s#%s',
@@ -220,7 +220,7 @@ class URL
      */
     public static function getTrojanURL(User $user, Node $node, bool $emoji = false): string
     {
-        $node_config = $node->getTrojanConfig($user, $node->custom_config, $emoji);
+        $node_config = $node->getTrojanConfig($user, $node->activeCustomConfig(), $emoji);
         $url= sprintf(
             'trojan://%s@%s:%s?flow=%s&security=%s&sni=%s#%s',
             $node_config['uuid'],
