@@ -815,7 +815,8 @@
                                 website_request_token: $('#website_request_token').val(),
                                 website_backend_token: $('#website_backend_token').val(),
                                 website_auth_background_image: $('#website_auth_background_image').val(),
-                                website_admin_path: $('#website_admin_path').val()
+                                website_admin_path: $('#website_admin_path').val(),
+                                website_user_access_log_storage_time: $('#website_user_access_log_storage_time').val()
                             },
                             success: function(data){
                                 if (data.ret === 1){

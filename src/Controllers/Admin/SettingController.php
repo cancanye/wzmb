@@ -43,7 +43,8 @@ class SettingController extends AdminController
                     'website_security_token',
                     'website_backend_token', 
                     'website_auth_background_image', 
-                    'website_admin_path'
+                    'website_admin_path',
+                    'website_user_access_log_storage_time',
                 ];
                 break;
             case 'permission_group':
