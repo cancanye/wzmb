@@ -7,7 +7,8 @@ use App\Models\{
     Ip,
     SigninIp,
     TrafficLog,
-    UserSubscribeLog
+    UserSubscribeLog,
+    User
 };
 use App\Utils\{
     Tools
@@ -21,7 +22,7 @@ class RecordController extends AdminController
     {
         $table_config_alive['total_column'] = [
             'id'        => 'ID',
-            'userid'    => '用户ID',
+            'userid'    => '用户',
             'node_name' => '节点名',
             'ip'        => 'IP',
             'location'  => '归属地',
@@ -30,7 +31,7 @@ class RecordController extends AdminController
         $table_config_alive['ajax_url']      = 'record/ajax/alive';
         $table_config_signin['total_column'] = [
             'id'        => 'ID',
-            'userid'    => '用户ID',
+            'userid'    => '用户',
             'ip'        => 'IP',
             'location'  => '归属地',
             'datetime'  => '时间',
@@ -39,7 +40,7 @@ class RecordController extends AdminController
         $table_config_signin['ajax_url']        = 'record/ajax/signin';
         $table_config_subscribe['total_column'] = [
             'id'                  => 'ID',
-            'user_id'             => '用户ID',
+            'user_id'             => '用户',
             'subscribe_type'      => '类型',
             'request_ip'          => 'IP',
             'location'            => '归属地',
@@ -48,7 +49,7 @@ class RecordController extends AdminController
         $table_config_subscribe['ajax_url']   = 'record/ajax/subscribe';
         $table_config_traffic['total_column'] = [
             'id'              => 'ID',
-            'user_id'         => '用户ID',
+            'user_id'         => '用户',
             'node_name'       => '使用节点',
             'rate'            => '倍率',
             'origin_traffic'  => '实际使用流量',
@@ -88,7 +89,7 @@ class RecordController extends AdminController
                 $data = $query['datas']->map(function($rowData) {
                     return [
                         'id'        =>  $rowData->id,
-                        'userid'    =>  $rowData->userid,
+                        'userid'    =>  User::userEmail($rowData->userid),
                         'node_name' =>  $rowData->node_name(),
                         'ip'        =>  Tools::getRealIp($rowData->ip),
                         'location'  =>  Tools::getIPLocation(Tools::getRealIp($rowData->ip)),
@@ -113,7 +114,7 @@ class RecordController extends AdminController
                 $data = $query['datas']->map(function($rowData) {
                     return [
                         'id'       => $rowData->id,
-                        'userid'   => $rowData->userid,
+                        'userid'   => User::userEmail($rowData->userid),
                         'ip'       => $rowData->ip,
                         'location' => Tools::getIPLocation($rowData->ip),
                         'datetime' => date('Y-m-d H:i:s', $rowData->datetime),
@@ -136,7 +137,7 @@ class RecordController extends AdminController
                 $data = $query['datas']->map(function($rowData) {
                     return [
                         'id'             => $rowData->id,
-                        'user_id'        => $rowData->user_id,
+                        'user_id'        => User::userEmail($rowData->user_id),
                         'subscribe_type' => $rowData->subscribe_type,
                         'request_ip'     => $rowData->request_ip,
                         'location'       => Tools::getIPLocation($rowData->request_ip),
@@ -150,7 +151,7 @@ class RecordController extends AdminController
                 $data = $query['datas']->map(function($rowData) {
                     return [
                         'id'             => $rowData->id,
-                        'user_id'        => $rowData->user_id,
+                        'user_id'        => User::userEmail($rowData->user_id),
                         'node_name'      => $rowData->node()->name,
                         'rate'           => $rowData->rate,
                         'origin_traffic' => Tools::flowAutoShow($rowData->u + $rowData->d),

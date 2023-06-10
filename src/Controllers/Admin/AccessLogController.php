@@ -24,9 +24,12 @@ class AccessLogController extends AdminController
         ];
 
         $table_config['ajax_url'] = 'access_log/ajax';
-
+        $nodes = Node::all();
+        $users = User::all();
         $this->view()
             ->assign('table_config', $table_config)
+            ->assign('users', $users)
+            ->assign('nodes', $nodes)
             ->display('admin/access_log.tpl');
         return $response;
     }
@@ -40,8 +43,8 @@ class AccessLogController extends AdminController
         $data = $query['datas']->map(function($rowData) {
             return [
                 'id'    =>  $rowData->id,
-                'user'  =>  $rowData->userEmail(),
-                'node'  =>  $rowData->nodeName(),
+                'user'  =>  $rowData->user_email,
+                'node'  =>  $rowData->node_name,
                 'type'  =>  $rowData->type,
                 'address'   => $rowData->address,
                 'date'  => date('Y-m-d H:i:s', $rowData->created_at),

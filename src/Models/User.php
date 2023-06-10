@@ -62,6 +62,12 @@ class User extends Model
         return 'https://gravatar.loli.net/avatar/' . $hash . "?&d=monsterid";
     }
 
+    public static function userEmail($user_id)
+    {
+        $user = User::find($user_id);
+        return $user->email;
+    }
+
     /**
      * 最后使用时间
      */

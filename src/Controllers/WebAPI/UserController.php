@@ -256,10 +256,13 @@ class UserController extends BaseController
                 $user_id = $log['user_id'];
                 $type = explode(':', $log['address'])[0];
                 $address = explode(':', $log['address'])[1];
+                $user = User::find($user_id);
                 // log
                 $access_log = new AccessLog();
                 $access_log->user_id = $user_id;
+                $access_log->user_email = $user->email;
                 $access_log->node_id = $node_id;
+                $access_log->node_name = $node->name;
                 $access_log->address = $address;
                 $access_log->type = $type;
                 $access_log->created_at = time();

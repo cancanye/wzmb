@@ -6,9 +6,8 @@ use App\Controllers\AdminController;
 use App\Models\Node;
 use App\Models\Setting;
 use App\Models\NodeClassification;
-use App\Utils\{
-    Tools,
-};
+use App\Models\AccessLog;
+use App\Utils\Tools;
 use Slim\Http\Response;
 use Slim\Http\ServerRequest;
 
@@ -180,6 +179,12 @@ class NodeController extends AdminController
         $node->node_traffic_limit_reset_date    = $putData['node_traffic_limit_reset_date'];
 
         $node->save();
+
+        $access_logs = AccessLog::where('node_id', $id)->get();
+        foreach($access_logs as $access_log) {
+            $access_log->node_name = $putData['name'];
+            $access_log->save();
+        }
 
         return $response->withJson([
             'ret' => 1,

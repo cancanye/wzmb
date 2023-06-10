@@ -42,7 +42,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body">                                            
                                             {include file='table/table.tpl'}
                                         </div>  
                                     </div>
