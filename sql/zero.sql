@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-06-10 06:23:52
+-- 生成日期： 2023-06-10 10:45:04
 -- 服务器版本： 10.11.3-MariaDB
 -- PHP 版本： 8.2.6
 
@@ -430,7 +430,9 @@ CREATE TABLE `user` (
 CREATE TABLE `user_access` (
   `id` bigint(20) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `user_email` varchar(50) NOT NULL,
   `node_id` int(11) NOT NULL,
+  `node_name` varchar(50) NOT NULL,
   `type` char(10) NOT NULL,
   `address` varchar(255) NOT NULL,
   `created_at` int(11) NOT NULL
