@@ -10,6 +10,7 @@ use App\Models\{
     TrafficLog,
     NodeOnlineLog,
     DetectLog,
+    AccessLog
 };
 use App\Utils\Tools;
 use Slim\Http\Response;
@@ -223,6 +224,46 @@ class UserController extends BaseController
                 $detect_log->node_id = $node_id;
                 $detect_log->datetime = time();
                 $detect_log->save();
+            }
+        }
+
+        return $response->withJson([
+            'ret' => 1,
+            'data' => 'ok',
+        ]);
+    }
+
+    public function addAccessLog(ServerRequest $request, Response $response, array $args)
+    {
+        $params = $request->getQueryParams();
+
+        $data = $request->getParam('data');
+        $node_id = $params['node_id'];
+        if ($node_id == '0') {
+            $node = Node::where('node_ip', $_SERVER['REMOTE_ADDR'])->first();
+            $node_id = $node->id;
+        }
+        $node = Node::find($node_id);
+
+        if (is_null($node)) {
+            return $response->withJson([
+                'ret' => 0
+            ]);
+        }
+
+        if (count($data) > 0) {
+            foreach ($data as $log) {
+                $user_id = $log['user_id'];
+                $type = explode(':', $log['address'])[0];
+                $address = explode(':', $log['address'])[1];
+                // log
+                $access_log = new AccessLog();
+                $access_log->user_id = $user_id;
+                $access_log->node_id = $node_id;
+                $access_log->address = $address;
+                $access_log->type = $type;
+                $access_log->created_at = time();
+                $access_log->save();
             }
         }
 

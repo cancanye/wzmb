@@ -73,6 +73,8 @@
                                                                     <input class="form-control mb-5" data-bs-toggle="tooltip" title="请输入安全的密钥" id="website_backend_token" name="website_backend_token" type="text" placeholder="token" value="{$settings['website_backend_token']}" />
                                                                     <label class="form-label">登陆页背景图片</label>
                                                                     <input class="form-control mb-5" data-bs-toggle="tooltip" title="不更改保持默认" id="website_auth_background_image" name="website_auth_background_image" type="text" placeholder="" value="{$settings['website_auth_background_image']}" />
+                                                                    <label class="form-label">访问记录保存时间</label>
+                                                                    <input class="form-control mb-5" data-bs-toggle="tooltip" title="不更改保持默认" id="website_user_access_log_storage_time" name="website_user_access_log_storage_time" type="text" placeholder="" value="{$settings['website_user_access_log_storage_time']}" />
                                                                 </div>
                                                             </div>
                                                         </div>

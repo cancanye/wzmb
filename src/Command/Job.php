@@ -16,6 +16,7 @@ use App\Models\Setting;
 use App\Models\Order;
 use App\Models\DetectBanLog;
 use App\Models\DetectLog;
+use App\Models\AccessLog;
 use App\Services\Mail;
 use App\Utils\Tools;
 use App\Utils\Telegram;
@@ -64,6 +65,7 @@ class Job extends Command
         // 清理各表记录
         echo '清理数据库各表开始' . PHP_EOL;
         UserSubscribeLog::where('request_time', '<', date('Y-m-d H:i:s', time() - 86400 * (int)Setting::obtain('subscribe_log_keep_time')))->delete();
+        AccessLog::where('created_at', '<', time() - 86400 * Setting::obtain('website_user_access_log_storage_time'))->delete();
         Token::where('expire_time', '<', time())->delete();
         DetectLog::where('datetime', '<', time() - 86400 * 3)->delete();
         Ip::where('datetime', '<', time() - 300)->delete();

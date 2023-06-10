@@ -260,11 +260,11 @@
             });
         }
     </script>
-        <script>
-            const filterSearch = document.querySelector('[data-kt-admin-table-filter="search"]');
-            filterSearch.addEventListener('keyup', function (e) {
-                table_1.search(e.target.value).draw();
-            });
-        </script>
+    <script>
+        const filterSearch = document.querySelector('[data-kt-admin-table-filter="search"]');
+        filterSearch.addEventListener('keyup', function (e) {
+            table_1.search(e.target.value).draw();
+        });
+    </script>
     </body>
 </html>

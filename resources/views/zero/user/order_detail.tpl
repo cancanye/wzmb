@@ -34,6 +34,9 @@
                                             <div class="card-title">
                                                 <h2>{$trans->t('order')} #{$order->order_no}</h2>
                                             </div>
+                                            <div class="card-toolbar">
+                                                <span class="fw-bold fs-1 text-danger" id="countdown_order_time"></span>
+                                            </div>
                                         </div>
                                         
                                         
@@ -169,6 +172,11 @@
         </div>
 		{include file='include/global/scripts.tpl'}
         {include file='include/index/news.tpl'}
+        <script>
+            {if $order->expired_time > time()}
+                countdown('{date('Y-m-d H:i:s', $order->expired_time)}', 'countdown_order_time');
+            {/if}
+        </script>
         <script>
         
             paypal

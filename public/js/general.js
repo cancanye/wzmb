@@ -10,12 +10,21 @@ function countdown(date, dom) {
         const distance = endDate.getTime() - now;
         if (distance <= 0) {
         clearInterval(timerInterval);
+        window.location.reload();
         } else {
             const days = Math.floor(distance / (1000 * 3600 * 24));
             const hours = Math.floor((distance % (1000 * 3600 * 24)) / (1000 * 3600));
             const minutes = Math.floor((distance % (1000 * 3600)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            const countdown = `${days}${i18next.t('day')} ${hours}:${minutes}:${seconds}`;
+            let countdown = '';
+            if (days > 0) {
+                countdown += `${days}${i18next.t('day')} `;
+            }
+            if (days > 0 || hours > 0) {
+                countdown += `${hours}:${minutes}:${seconds}`;
+            } else {
+                countdown += `${minutes}:${seconds}`;
+            }
             document.getElementById(dom).innerHTML = countdown;
         }
     } 

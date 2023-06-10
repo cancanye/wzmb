@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-05-24 05:43:20
--- 服务器版本： 10.11.2-MariaDB
--- PHP 版本： 8.2.5
+-- 生成日期： 2023-06-10 06:23:52
+-- 服务器版本： 10.11.3-MariaDB
+-- PHP 版本： 8.2.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `zero`
+-- 数据库： `wzmb`
 --
 
 -- --------------------------------------------------------
@@ -170,6 +170,9 @@ CREATE TABLE `node` (
   `status` tinyint(1) NOT NULL COMMENT '是否显示1显示0不显示',
   `server` varchar(128) NOT NULL COMMENT '节点地址',
   `custom_config` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '节点配置',
+  `custom_config_2` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `custom_config_3` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `active_custom_config` int(11) NOT NULL DEFAULT 1,
   `node_flag` varchar(16) NOT NULL COMMENT '节点旗帜',
   `node_type` int(11) NOT NULL COMMENT '节点类型:1SS,2VMESS,3VLESS,4TROJAN,5SS-PLUGINS',
   `traffic_rate` float NOT NULL DEFAULT 1 COMMENT '流量倍率',
@@ -421,6 +424,21 @@ CREATE TABLE `user` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `user_access`
+--
+
+CREATE TABLE `user_access` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `node_id` int(11) NOT NULL,
+  `type` char(10) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `user_invite_code`
 --
 
@@ -646,6 +664,12 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `uuid` (`uuid`) USING BTREE;
 
 --
+-- 表的索引 `user_access`
+--
+ALTER TABLE `user_access`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `user_invite_code`
 --
 ALTER TABLE `user_invite_code`
@@ -811,6 +835,12 @@ ALTER TABLE `ticket`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `user_access`
+--
+ALTER TABLE `user_access`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用表AUTO_INCREMENT `user_invite_code`

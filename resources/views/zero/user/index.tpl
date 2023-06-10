@@ -384,6 +384,10 @@
         </div>
 		{include file='include/global/scripts.tpl'}
 		{include file='include/index/news.tpl'}
-		<script>countdown('{$user->class_expire}', 'user_class_expired_time')</script>							
+		<script>
+			{if strtotime($user->class_expire) > time()}
+				countdown('{$user->class_expire}', 'user_class_expired_time')
+			{/if}
+		</script>							
 	</body>
 </html>

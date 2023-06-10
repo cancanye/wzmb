@@ -61,6 +61,16 @@
     },
     {
         "id": null,
+        "item": "website_user_access_log_storage_time",
+        "value": "7",
+        "class": "website",
+        "is_public": 0,
+        "type": "int",
+        "default": "7",
+        "mark": "访问记录保存时间"
+    },
+    {
+        "id": null,
         "item": "smtp_host",
         "value": "",
         "class": "smtp",

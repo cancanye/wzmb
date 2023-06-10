@@ -176,7 +176,27 @@ class Model extends EloquentMedel
         if (!is_null($precondition)) {
             call_user_func($precondition, $query);
         }
-        if ($search) {
+        if (strpos($search, '->')) {
+            $start_date = explode(' -> ', (explode('+', $search)[1]))[0];
+            $end_date = explode(' -> ', (explode('+', $search)[1]))[1];
+            $str = explode('+', $search)[0];
+            $query->where(
+                function ($query) use ($str, $start_date, $end_date) {
+                    $query->where('id', 'LIKE binary', "%$str%")
+                        ->whereBetween('created_at', [strtotime($start_date), strtotime($end_date)]);
+            
+                    $attributes = Capsule::schema()->getColumnListing(self::getTableName());
+                    foreach ($attributes as $s) {
+                        if ($s != 'id') {
+                            $query->orWhere(function($query) use ($str, $s, $start_date, $end_date) {
+                                $query->where($s, 'LIKE binary', "%$str%")
+                                    ->whereBetween('created_at', [strtotime($start_date), strtotime($end_date)]);
+                            });
+                        }
+                    }
+                }
+            );
+        } else if ($search) {
             $query->where(
                 function ($query) use ($search) {
                     $query->where('id', 'LIKE binary', "%$search%");

@@ -18,6 +18,7 @@ use App\Controllers\Admin\CommissionController;
 use App\Controllers\Admin\PaymentController;
 use App\Controllers\Admin\KnowledgeController;
 use App\Controllers\Admin\NodeClassificationController;
+use App\Controllers\Admin\AccessLogController;
 use App\Middleware\{
     Guest, 
     Admin, 
@@ -257,6 +258,12 @@ return function (SlimApp $app) {
             $classification->post('/getinfo',              NodeClassificationController::class . ':getInfoNodeClassification');
             $classification->delete('/delete',             NodeClassificationController::class . ':deleteNodeClassification');
         });
+
+        //access log
+        $group->group('/access_log', function ($access) {
+            $access->get('',                               AccessLogController::class . ':accessLogIndex');
+            $access->post('/ajax',                         AccessLogController::class . ':accessLogAjax');
+        });
     })->add(new Admin());
 
     // webapi
@@ -271,6 +278,7 @@ return function (SlimApp $app) {
         $group->post('/nodes/config',        App\Controllers\WebAPI\NodeController::class . ':getConfig');
         $group->get('/func/ping',            App\Controllers\WebAPI\FuncController::class . ':ping');
         $group->get('/func/detect_rules',    App\Controllers\WebAPI\FuncController::class . ':getDetectLogs');
+        $group->post('/users/accesslog',      App\Controllers\WebAPI\UserController::class . ':addAccessLog');
     })->add(new WebAPI());
 
     $app->group('/link', function (Group $group) {
