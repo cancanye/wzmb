@@ -50,6 +50,7 @@ class Config
             'verify_email'                  => $public_configs['verify_email'],
             'enable_user_show_telegram_button'  => $public_configs['enable_user_show_telegram_button'],
             'enable_user_show_referral_button'  => $public_configs['enable_user_show_referral_button'],
+            'enable_ticket'                 => $public_configs['enable_ticket'],
         ];
     }
 

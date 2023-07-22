@@ -47,7 +47,7 @@ class Ip extends Model
     
     public function getUserAliveIpCount()
     {
-        $total_ip = IP::selectRaw('userid, COUNT(DISTINCT ip) AS count')
+        $total_ip = Ip::selectRaw('userid, COUNT(DISTINCT ip) AS count')
             ->whereRaw('datetime >= UNIX_TIMESTAMP() - 180')
             ->groupBy('userid')
             ->get()

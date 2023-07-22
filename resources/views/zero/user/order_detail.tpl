@@ -173,7 +173,7 @@
 		{include file='include/global/scripts.tpl'}
         {include file='include/index/news.tpl'}
         <script>
-            {if $order->expired_time > time()}
+            {if $order->order_status == 1 && $order->expired_time > time()}
                 countdown('{date('Y-m-d H:i:s', $order->expired_time)}', 'countdown_order_time');
             {/if}
         </script>

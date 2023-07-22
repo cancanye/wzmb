@@ -403,8 +403,8 @@ class LinkController extends BaseController
         $Extend = [
             'remark'      => '',
             'type'        => '',
-            'add'         => $baseUrl,
-            'address'     => $baseUrl,
+            'add'         => Setting::obtain('subscribe_extend_node_address'),
+            'address'     => Setting::obtain('subscribe_extend_node_address'),
             'port'        => 10086,
             'method'      => 'aes-256-gcm',
             'passwd'      => $user->passwd,

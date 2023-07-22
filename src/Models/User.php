@@ -8,7 +8,6 @@ use App\Utils\{
 use App\Services\{
     Mail, 
 };
-use App\Models\Ip;
 use Pkly\I18Next\I18n;
 use Ramsey\Uuid\Uuid;
 use Exception;
@@ -232,7 +231,7 @@ class User extends Model
      */
     public function onlineIPCount(): int
     {
-        $total_ip = IP::selectRaw('userid, COUNT(DISTINCT ip) AS count')
+        $total_ip = Ip::selectRaw('userid, COUNT(DISTINCT ip) AS count')
             ->whereRaw('datetime >= UNIX_TIMESTAMP() - 180')
             ->where('userid', $this->id)
             ->groupBy('userid')
@@ -541,5 +540,23 @@ class User extends Model
         $user_group = isset($user_groups) ? $user_groups[$group] : $group;
 
         return $user_group;
+    }
+
+    public static function resetUserProduct($id)
+    {
+        $user = User::find($id);
+        $user->class = 0;
+        $user->transfer_enable = 0;
+        $user->u               = 0;
+        $user->d               = 0;
+        $user->last_day_t      = 0;
+        $user->reset_traffic_value = NULL;
+        $user->reset_traffic_date  = NULL;
+        $user->product_id          = NULL;
+        $user->class_expire = date('Y-m-d H:i:s', time());
+        $user->node_iplimit        = Setting::obtain('signup_default_ip_limit');
+        $user->node_speedlimit     = Setting::obtain('signup_default_speed_limit');
+        
+        $user->save();
     }
 }

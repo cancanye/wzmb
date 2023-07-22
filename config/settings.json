@@ -881,6 +881,16 @@
     },
     {
         "id": null,
+        "item": "subscribe_extend_node_address",
+        "value": "bing.com",
+        "class": "subscribe",
+        "is_public": 0,
+        "type": "string",
+        "default": "bing.com",
+        "mark": "diy address"
+    },
+    {
+        "id": null,
         "item": "enable_permission_group",
         "value": "0",
         "class": "permission_group",
@@ -928,6 +938,16 @@
         "type": "string",
         "default": "admin",
         "mark": "自定义管理员路径"
+    },
+    {
+        "id": null,
+        "item": "enable_ticket",
+        "value": "1",
+        "class": "ticket",
+        "is_public": 1,
+        "type": "bool",
+        "default": "1",
+        "mark": "enable ticket"
     },
     {
         "id": null,

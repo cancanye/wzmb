@@ -398,6 +398,8 @@
                                                                     <input class="form-control mb-5" id="subscribe_surge_default_profile" value="{$settings['subscribe_surge_default_profile']}" type="text" placeholder="默认配置" />
                                                                     <label class="form-label">SURFBOARD 默认配置</label>
                                                                     <input class="form-control mb-5" id="subscribe_surfboard_default_profile" value="{$settings['subscribe_surfboard_default_profile']}" type="text" placeholder="默认配置" />
+                                                                    <label class="form-label">DIY ADDRESS</label>
+                                                                    <input class="form-control mb-5" id="subscribe_extend_node_address" value="{$settings['subscribe_extend_node_address']}" type="text" placeholder="" />
                                                                 </div>
                                                             </div>
                                                         </div>

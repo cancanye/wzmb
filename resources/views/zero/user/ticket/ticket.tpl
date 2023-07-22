@@ -34,8 +34,8 @@
 												</div>
 											</div>
 											<div class="card-toolbar">
-												<button class="btn btn-primary fw-bold" type="button" data-bs-toggle="modal" data-bs-target="#zero_modal_create_ticket">
-												<i class="bi bi-cloud-plus fs-2"></i>{$trans->t('create ticket')}
+													<button class="btn btn-primary fw-bold" type="button" {if $config['enable_ticket']}data-bs-toggle="modal"{/if} data-bs-target="#zero_modal_create_ticket">
+													<i class="bi bi-cloud-plus fs-2"></i>{$trans->t('create ticket')}
 												</button>
 											</div>
 										</div>
@@ -142,6 +142,13 @@ ClassicEditor
     .catch(error => {
         console.error(error);
     });
+</script>
+<script>
+{if !$config['enable_ticket']}
+$('[data-bs-target="#zero_modal_create_ticket"]').click(function() {
+	getResult('工单系统暂时关闭', '', 'warning');
+})
+{/if}
 </script>
     </body>
 </html>

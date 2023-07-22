@@ -31,6 +31,8 @@
                                         <div class="card-header">
                                             <div class="card-title text-dark fs-3 fw-bolder">用户配置</div>
                                             <div class="card-toolbar">
+                                                <a class="badge badge-lg badge-light-success fw-bold fs-3 me-3">当前套餐:&nbsp;{if $user->class > 0 && !is_null($user->product_id)}{$user_product->name} {$user_product_order->product_period}天 {else}无{/if}</a>
+                                                <a class="btn btn-primary btn-sm fw-bold me-3" id="zero_admin_reset_user_product">重置套餐</a>
                                                 <a class="btn btn-primary btn-sm fw-bold" onclick="updateUser('{$user->id}')">保存用户</a>
                                             </div>
                                         </div>
@@ -151,6 +153,37 @@
         </script>
         <script>
             $('#group').val("{$user->node_group}").trigger('change');
+        </script>
+        <script>
+            $('#zero_admin_reset_user_product').click(function(){
+                $.ajax({
+                    type: 'POST',
+                    url: "/{$config['website_admin_path']}/user/reset/product",
+                    dataType: 'JSON',
+                    data: {
+                        uid: {$user->id}
+                    },
+                    success: function(data){
+                        if (data.ret === 1){
+                            Swal.fire({
+                                text: data.msg,
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            }).then(function (result) {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            getResult(data.msg, '', 'error');
+                        }
+                    }
+                });
+            });
         </script>
     </body>
 </html>

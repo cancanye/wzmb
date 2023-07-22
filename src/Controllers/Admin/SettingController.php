@@ -214,7 +214,8 @@ class SettingController extends AdminController
                     'subscribe_diy_message', 
                     'subscribe_clash_default_profile', 
                     'subscribe_surge_default_profile', 
-                    'subscribe_surfboard_default_profile'
+                    'subscribe_surfboard_default_profile',
+                    'subscribe_extend_node_address'
                 ];
                 break;
             case 'flag':
@@ -222,6 +223,13 @@ class SettingController extends AdminController
                     'country_flag'
                 ];
                 break;
+            case 'ticket':
+                $list = [
+                    'enable_ticket'
+                ];
+                break;
+            default:
+                0;
         }
 
         foreach ($list as $item)

@@ -7,7 +7,8 @@ use App\Models\{
     User,
     Product,
     Setting,
-    DetectBanLog
+    DetectBanLog,
+    Order
 };
 use App\Utils\{
     Hash,
@@ -97,8 +98,18 @@ class UserController extends AdminController
         $id = $args['id'];
         $user = User::find($id);
         $user_groups = json_decode(Setting::obtain('user_group_detail'), true);
+        if ($user->class > 0 && !is_null($user->product_id)) {
+            $user_product = Product::find($user->product_id);
+            $user_product_order = Order::where('user_id', $id)->where('product_id', $user->product_id)
+                ->where('order_status', '=', 2)->orderBy('paid_time', 'desc')->first();
+        } else {
+            $user_product = null;
+            $user_product_order = null;
+        }
         $this->view()
             ->assign('user', $user)
+            ->assign('user_product_order', $user_product_order)
+            ->assign('user_product', $user_product)
             ->assign('user_groups', $user_groups)
             ->display('admin/user/update.tpl');
         return $response;
@@ -109,12 +120,12 @@ class UserController extends AdminController
         $putData = $request->getParsedBody();
         $id = $putData['id'];
         $user = User::find($id);
-        $user->email = $putData['email'];
+        $change_group = $putData['group'] != $user->node_group ? true : false;
 
+        $user->email = $putData['email'];
         if ($putData['password'] != '') {
             $user->password = Hash::passwordHash($putData['password']);
         }
-
         $user->transfer_enable = Tools::toGB($putData['transfer_enable']);
         $user->node_speedlimit = $putData['node_speedlimit'] ?: 0;
         $user->node_iplimit    = $putData['node_iplimit'] ?: 0;
@@ -125,7 +136,9 @@ class UserController extends AdminController
         $user->class_expire    = $putData['class_expire'];
         $user->commission      = $putData['commission'] ?: 0;
 
-          // 手动封禁
+        $user->save();
+
+        // 手动封禁
         $ban_time = (int) $putData['ban_time'];
         if ($ban_time > 0) {
             $user->enable                    = 0;
@@ -142,12 +155,10 @@ class UserController extends AdminController
             $DetectBanLog->save();
         }
 
-        if (!$user->save()) {
-            return $response->withJson([
-                'ret' => 0,
-                'msg' => '修改失败'
-            ]);
+        if ($change_group) {
+            User::resetUserProduct($user->id);
         }
+
         return $response->withJson([
             'ret' => 1,
             'msg' => '修改成功'
@@ -223,6 +234,16 @@ class UserController extends AdminController
                 break;  
         }
         $user->save();
+        return $response->withJson([
+            'ret'   => 1,
+            'msg'   => 'success',
+        ]);
+    }
+
+    public function resetUserProduct(ServerRequest $request, Response $response, array $args): Response
+    {
+        User::resetUserProduct($request->getParsedBodyParam('uid'));
+
         return $response->withJson([
             'ret'   => 1,
             'msg'   => 'success',

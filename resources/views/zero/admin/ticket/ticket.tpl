@@ -30,7 +30,12 @@
 
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="card-title text-dark fs-3 fw-bolder">工单列表</div>
+                                            <div class="card-title text-dark fs-3 fw-bolder">
+                                                <span class="me-3">工单列表</span>
+                                                <span class="form-check form-switch ">
+                                                    <input class="form-check-input" type="checkbox" value="" id="enable_ticket" {if $enable_ticket}checked{/if} />
+                                                </span>    
+                                            </div>
                                             <div class="card-toolbar">
 												<button class="btn btn-primary fw-bold btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#zero_modal_create_ticket">
                                                 <i class="bi bi-cloud-plus fs-3"></i>创建工单
@@ -183,6 +188,26 @@
                 });
             }
         </script>
-        
+        <script>
+            $('#enable_ticket').click(function() {
+                const enable_value = $('#enable_ticket').prop('checked') ? 1 : 0;
+                $.ajax({
+                    type: 'POST',
+                    url: '/{$config['website_admin_path']}/setting',
+                    dataType: 'json',
+                    data: {
+                        class: 'ticket',
+                        enable_ticket: enable_value
+                    },
+                    success: function(data) {
+                        if (data.ret == 1) {
+                            console.log('success')
+                        } else {
+                            console.log('error')
+                        }
+                    }
+                });
+            })
+        </script>
     </body>
 </html>

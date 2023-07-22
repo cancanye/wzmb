@@ -31,9 +31,10 @@ class NodeController extends AdminController
             'action'                  => '操作',
         ];
         $table_config['ajax_url'] = 'node/ajax';
-
+        $userGroups = json_decode(Setting::obtain('user_group_detail'), true);
         $this->view()
             ->assign('table_config', $table_config)
+            ->assign('userGroups', $userGroups)
             ->display('admin/node/node.tpl');
         return $response;
     }

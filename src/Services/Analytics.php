@@ -31,12 +31,12 @@ class Analytics
 
     public function increase_percentage($num_1, $num_2)
     {
-        if ($num_1 === 0 || $num_1 <= $num_2) {
-            $percent = 0;
-        } else if ($num_2 === 0) {
+        if ($num_1 > $num_2 && $num_2 != 0) {
+            $percent = round((($num_1 - $num_2) / $num_2) * 100, 2);
+        } else if($num_2 == 0) {
             $percent = $num_1 * 100;
         } else {
-            $percent = ($num_1 - $num_2) / $num_2 * 100;
+            $percent = 0;
         }
         return $percent;
     }
