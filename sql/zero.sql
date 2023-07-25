@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-07-25 08:24:13
+-- 生成日期： 2023-07-25 14:04:34
 -- 服务器版本： 11.0.2-MariaDB
 -- PHP 版本： 8.2.8
 
@@ -110,7 +110,8 @@ CREATE TABLE `detect_list` (
   `text` longtext NOT NULL,
   `regex` longtext NOT NULL,
   `type` int(11) NOT NULL,
-  `node_id` varchar(128) NOT NULL COMMENT '适用节点'
+  `node_id` varchar(50) NOT NULL COMMENT '适用节点',
+  `show` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
