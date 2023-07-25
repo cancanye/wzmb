@@ -811,6 +811,7 @@
                             data: {
                                 class: type,
                                 website_url: $('#website_url').val(),
+                                website_backend_request_url: $('#website_backend_request_url').val(),
                                 website_name: $('#website_name').val(),
                                 website_landing_index: $('#website_landing_index').val(),
                                 website_security_token: $('#website_security_token').val(),
@@ -1048,7 +1049,6 @@
                                 enable_subscribe_emoji: $('#enable_subscribe_emoji').val(),
                                 enable_subscribe_log: $('#enable_subscribe_log').val(),
                                 subscribe_log_keep_time: $('#subscribe_log_keep_time').val(),
-                                subscribe_diy_message: $('#subscribe_diy_message').val(),
                                 subscribe_clash_default_profile: $('#subscribe_clash_default_profile').val(),
                                 subscribe_surge_default_profile: $('#subscribe_surge_default_profile').val(),
                                 subscribe_surfboard_default_profile: $('#subscribe_surfboard_default_profile').val(),
