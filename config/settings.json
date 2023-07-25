@@ -71,6 +71,16 @@
     },
     {
         "id": null,
+        "item": "website_backend_request_url",
+        "value": "http://127.0.0.1",
+        "class": "website",
+        "is_public": 0,
+        "type": "string",
+        "default": "http:127.0.0.1",
+        "mark": "backend url"
+    },
+    {
+        "id": null,
         "item": "smtp_host",
         "value": "",
         "class": "smtp",
@@ -878,16 +888,6 @@
         "type": "string",
         "default": "default",
         "mark": "surfboard 默认配置"
-    },
-    {
-        "id": null,
-        "item": "subscribe_extend_node_address",
-        "value": "bing.com",
-        "class": "subscribe",
-        "is_public": 0,
-        "type": "string",
-        "default": "bing.com",
-        "mark": "diy address"
     },
     {
         "id": null,

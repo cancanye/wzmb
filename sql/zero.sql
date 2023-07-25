@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-06-10 10:45:04
--- 服务器版本： 10.11.3-MariaDB
--- PHP 版本： 8.2.6
+-- 生成日期： 2023-07-25 08:24:13
+-- 服务器版本： 11.0.2-MariaDB
+-- PHP 版本： 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -109,7 +109,8 @@ CREATE TABLE `detect_list` (
   `name` longtext NOT NULL,
   `text` longtext NOT NULL,
   `regex` longtext NOT NULL,
-  `type` int(11) NOT NULL
+  `type` int(11) NOT NULL,
+  `node_id` varchar(128) NOT NULL COMMENT '适用节点'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

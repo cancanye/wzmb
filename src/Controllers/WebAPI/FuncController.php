@@ -12,21 +12,15 @@ use Slim\Http\ServerRequest;
 
 class FuncController extends BaseController
 {
-    public function getDetectLogs(ServerRequest $request, Response $response, array $args)
+    public function getDetectLogs(ServerRequest $request, Response $response, array $args): Response
     {
-        $rules = DetectRule::all();
+        $getData = $request->getQueryParams();
+        $node_id = $getData['node_id'];
 
+        $rules = DetectRule::whereJsonContains('node_id', ["$node_id"])->get();
         return $response->withJson([
             'ret' => 1,
             'data' => $rules,
-        ]);
-    }
-
-    public function ping(ServerRequest $request, Response $response, array $args)
-    {
-        return $response->withJson([
-            'ret' => 1,
-            'data' => 'pong',
         ]);
     }
 }

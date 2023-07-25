@@ -6,6 +6,7 @@ use App\Controllers\AdminController;
 use App\Models\DetectLog;
 use App\Models\DetectRule;
 use App\Models\DetectBanLog;
+use App\Models\Node;
 use Slim\Http\Response;
 use Slim\Http\ServerRequest;
 
@@ -41,10 +42,12 @@ class BanController extends AdminController
         $table_config_detect_record['ajax_url'] = 'ban/detect/record/ajax';
         $table_config_ban_record['ajax_url']    = 'ban/record/ajax';
         $table_config['ajax_url']               = 'ban/rule/ajax';
+        $nodes = Node::all();
         $this->view()
             ->assign('table_config', $table_config)
             ->assign('table_config_detect_record', $table_config_detect_record)
             ->assign('table_config_ban_record', $table_config_ban_record)
+            ->assign('nodes', $nodes)
             ->display('admin/ban.tpl');
         return $response;
     }
@@ -94,6 +97,7 @@ class BanController extends AdminController
         $rule->text  = $postData['text'];
         $rule->regex = $postData['regex'];
         $rule->type  = $postData['type'];
+        $rule->node_id = json_encode($postData['node_id']);
 
         if (!$rule->save()) {
             return $response->withJson([
@@ -118,6 +122,7 @@ class BanController extends AdminController
         $rule->text  = $putData['text'];
         $rule->regex = $putData['regex'];
         $rule->type  = $putData['type'];
+        $rule->node_id = json_encode($putData['node_id']);
 
         if (!$rule->save()) {
             return $response->withJson([
@@ -207,7 +212,8 @@ class BanController extends AdminController
             'id'    => $rule->id,
             'text'  => $rule->text,
             'regex' => $rule->regex,
-            'type'  => $rule->type
+            'type'  => $rule->type,
+            'node_id' => json_decode($rule->node_id, true),
         ]);
     }
 }

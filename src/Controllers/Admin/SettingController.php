@@ -45,6 +45,7 @@ class SettingController extends AdminController
                     'website_auth_background_image', 
                     'website_admin_path',
                     'website_user_access_log_storage_time',
+                    'website_backend_request_url'
                 ];
                 break;
             case 'permission_group':
@@ -214,8 +215,7 @@ class SettingController extends AdminController
                     'subscribe_diy_message', 
                     'subscribe_clash_default_profile', 
                     'subscribe_surge_default_profile', 
-                    'subscribe_surfboard_default_profile',
-                    'subscribe_extend_node_address'
+                    'subscribe_surfboard_default_profile'
                 ];
                 break;
             case 'flag':

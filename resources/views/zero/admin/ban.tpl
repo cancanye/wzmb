@@ -134,6 +134,16 @@
                                 <option value="2">数据包 HEX 匹配</option>
                             </select>
                         </div>
+                        <div class="d-flex flex-column mb-8">
+                            <label class="fs-6 fw-semibold mb-2">
+                                <span class="required">适用节点</span>
+                            </label>
+                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="适用节点" id="zero_create_ban_node">
+                            {foreach $nodes as $node}
+                                <option value="{$node->id}">{$node->name}</option>
+                            {/foreach}
+                            </select>
+                        </div>
                         <div class="d-flex flex-center flex-row-fluid pt-12">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">{$trans->t('discard')}</button>
                             <button type="submit" class="btn btn-primary" data-kt-admin-create-ban-rule-action="submit" onclick="zeroAdminCreateBanRule()">
@@ -194,6 +204,16 @@
                                 <option value="2">数据包 HEX 匹配</option>
                             </select>
                         </div>
+                        <div class="d-flex flex-column mb-8">
+                            <label class="fs-6 fw-semibold mb-2">
+                                <span class="required">适用节点</span>
+                            </label>
+                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="适用节点" id="zero_update_ban_node">
+                            {foreach $nodes as $node}
+                                <option value="{$node->id}">{$node->name}</option>
+                            {/foreach}
+                            </select>
+                        </div>
                         <div class="d-flex flex-center flex-row-fluid pt-12">
                             <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">{$trans->t('discard')}</button>
                             <button type="submit" class="btn btn-primary" data-kt-admin-update-ban-rule-action="submit" onclick="">
@@ -229,6 +249,7 @@
                                 $('#zero_update_ban_rule_description').val(data.text);
                                 $('#zero_update_ban_rule_regular_expressions').val(data.regex);
                                 $('#zero_update_ban_rule_type').val(data.type);
+                                $('#zero_update_ban_node').val(data.node_id).trigger('change');
                                 submitButton.setAttribute('onclick', 'zeroAdminUpdateBanRule("update", '+data.id+')')
                                 $('#zero_modal_update_ban_rule').modal('show');
                             }
@@ -247,6 +268,7 @@
                                     text: $('#zero_update_ban_rule_description').val(),
                                     regex: $('#zero_update_ban_rule_regular_expressions').val(),
                                     type: $('#zero_update_ban_rule_type').val(),
+                                    node_id: $('#zero_update_ban_node').val(),
                                     id
                                 },
                                 success: function (data) {
@@ -282,6 +304,7 @@
                         name: $('#zero_create_ban_rule_name').val(),
                         text: $('#zero_create_ban_rule_description').val(),
                         regex: $('#zero_create_ban_rule_regular_expressions').val(),
+                        node_id: $('#zero_create_ban_node').val(),
                         type: $('#zero_create_ban_rule_type').val()
                     },
                     success: function (data) {
