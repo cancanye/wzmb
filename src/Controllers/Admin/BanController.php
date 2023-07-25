@@ -21,6 +21,7 @@ class BanController extends AdminController
             'text'   => '介绍',
             'regex'  => '正则表达式',
             'type'   => '类型',
+            'show'   => '显示',
             'action' => '操作',
         ];
         $table_config_ban_record['total_column'] = [
@@ -72,6 +73,7 @@ class BanController extends AdminController
                 'text'   => $rowData->text,
                 'regex'  => $rowData->regex,
                 'type'   => $rowData->type(),
+                'show'   => $rowData->show(),
                 'action' => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
                                     <li><a class = "dropdown-item" onclick = "zeroAdminUpdateBanRule('.$type_1.', '.$rowData->id.')">编辑</a></li>
@@ -214,6 +216,19 @@ class BanController extends AdminController
             'regex' => $rule->regex,
             'type'  => $rule->type,
             'node_id' => json_decode($rule->node_id, true),
+        ]);
+    }
+
+    public function updateBanRuleStatus(ServerRequest $request, Response $response, array $args): Response
+    {
+        $id = $request->getParsedBodyParam('id');
+        $status = $request->getParsedBodyParam('status');
+        $rule = DetectRule::find($id);
+        $rule->show = $status;
+        $rule->save();
+        return $response->withJson([
+            'ret'   => 1,
+            'msg'   => 'success'
         ]);
     }
 }

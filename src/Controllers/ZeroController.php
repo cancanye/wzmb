@@ -390,7 +390,8 @@ class ZeroController extends BaseController
                 $recordsFiltered = $query['count'];
                 break;               
             case 'ban_rule':
-                $query = DetectRule::getTableDataFromAdmin($request);
+                $querys = DetectRule::query()->where('show', 1);
+                $query = DetectRule::getTableDataFromAdmin($request, null, null, $querys);
 
                 $data = $query['datas']->map(function($rowData) {
                     return [

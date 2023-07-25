@@ -341,9 +341,6 @@
             ],
             {include file='table/lang_chinese.tpl'}
             })
-    
-            var has_init = JSON.parse(localStorage.getItem(window.location.href + '-hasinit'));
-    
         </script>
     
         <script>
@@ -366,8 +363,22 @@
             ],
             {include file='table/lang_chinese.tpl'}
             })
-    
-            var has_init = JSON.parse(localStorage.getItem(window.location.href + '-hasinit'));
+        </script>
+        <script>
+            function updateRuleStatus(id, status) {
+                $.ajax({
+                    type: "POST",
+                    url: "/{$config['website_admin_path']}/ban/rule/update/status",
+                    dataType: "json",
+                    data: {
+                        id,
+                        status
+                    },
+                    success: function(data){
+                        table_1.ajax.reload();
+                    }
+                });
+            }
         </script>
     </body>
 </html>

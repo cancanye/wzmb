@@ -18,4 +18,23 @@ class DetectRule extends Model
     {
         return $this->type == 1 ? i18n::get()->t('packet plaintext match') : i18n::get()->t('packet hex match');
     }
+
+    public function show(): string
+    {
+        switch ($this->show) {
+            case 0:
+                $status = '<div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="" id="ban_rule_status'.$this->id.'" onclick="updateRuleStatus('.$this->id.', 1)" />
+                            </div>';
+                break;
+            case 1:
+                $status = '<div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" value="" id="ban_rule_status_'.$this->id.'" checked="checked" onclick="updateRuleStatus('.$this->id.', 0)" />
+                            </div>';
+                break;
+
+        }
+
+        return $status;
+    }
 }
