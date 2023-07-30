@@ -172,24 +172,18 @@
                 })
             }
         </script>
-        <script>
-            $('#type').on('change', function(){
-                const product_type_value = $('#type').val();
-                if (product_type_value != 1) {
-                    $('#class').val('0');
-                    $('#class').attr('disabled', 'disabled');
-                    $('#reset').val('0').trigger('change');
-                    $('#reset option:eq(0)').removeAttr('disabled');
-                    $('#reset option:eq(1)').attr('disabled', 'disabled');
-                    $('#reset option:eq(2)').attr('disabled', 'disabled');                          
-                } else {
-                    $('#class').val('1');
-                    $('#class').removeAttr('disabled');
-                    $('#reset').val('1').trigger('change');
-                    $('#reset option:eq(0)').attr('disabled', 'disabled');
-                    $('#reset option:eq(1)').removeAttr('disabled');
-                    $('#reset option:eq(2)').removeAttr('disabled');
-                }
+        <script>           
+            $('#type').on('change', function() {
+                const product_type_value = $(this).val();
+                const classElement = $('#class');
+                const resetElement = $('#reset');
+                const isProductTypeOne = product_type_value == 1;
+                classElement.val(isProductTypeOne ? '1' : '0');
+                classElement.prop('disabled', !isProductTypeOne);
+                resetElement.val(isProductTypeOne ? '1' : '0').trigger('change');
+                resetElement.children().each(function(index) {
+                    $(this).prop('disabled', isProductTypeOne ? (index == 0) : (index != 0));
+                });
             });
         </script>
     </body>
