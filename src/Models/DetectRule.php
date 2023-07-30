@@ -37,4 +37,14 @@ class DetectRule extends Model
 
         return $status;
     }
+
+    public function node(): array
+    {
+        $node_ids = json_decode($this->node_id, true);
+        $node_id = [];
+        foreach ($node_ids as $value) {
+            $node_id[] = $value;
+        }
+        return $node_id;
+    }
 }

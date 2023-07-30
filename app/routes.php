@@ -285,5 +285,9 @@ return function (SlimApp $app) {
 
     $app->group('/link', function (Group $group) {
         $group->get('/{token}',          App\Controllers\LinkController::class . ':GetContent');
-    });  
+    }); 
+    
+    $app->group('/api', function (Group $group) {
+        $group->get('/v1/client/subscribe', App\Controllers\SubsController::class . ':subscribe');
+    });
 };

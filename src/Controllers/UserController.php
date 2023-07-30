@@ -31,12 +31,12 @@ class UserController extends BaseController
             $code = InviteCode::where('user_id', $this->user->id)->first();
         }
         $invite_url = Setting::obtain('website_url') . '/auth/signup?code=' . $code->code;
-
+        $sub_url = Setting::obtain('subscribe_address_url') . "/api/v1/client/subscribe?token={$this->user->subscription_token}";
         $this->view()
             ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->assign('invite_url', $invite_url)
             ->registerClass('URL', URL::class)
-            ->assign('subInfo', LinkController::getSubinfo($this->user, 0))
+            ->assign('subInfo', $sub_url)
             ->display('user/index.tpl');
         return $response;
     }
@@ -47,10 +47,11 @@ class UserController extends BaseController
         $opts['os']     = str_replace(' ','',$opts['os']);
         $opts['client'] = str_replace(' ','',$opts['client']);
         $knowledges = Knowledge::where('client', $opts['client'])->where('platform', $opts['os'])->get();
+        $sub_url = Setting::obtain('subscribe_address_url') . "/api/v1/client/subscribe?token={$this->user->subscription_token}";
         if ($opts['os'] != '' && $opts['client'] != '') {
             $url = 'user/tutorial/'.$opts['os'].'/'.$opts['client'].'.tpl';
             $this->view()
-                ->assign('subInfo', LinkController::getSubinfo($this->user, 0))
+                ->assign('subInfo', $sub_url)
                 ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
                 ->assign('knowledges', $knowledges)
                 ->registerClass('URL', URL::class)

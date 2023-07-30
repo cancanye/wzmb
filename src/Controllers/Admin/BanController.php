@@ -21,6 +21,7 @@ class BanController extends AdminController
             'text'   => '介绍',
             'regex'  => '正则表达式',
             'type'   => '类型',
+            'node_id' => '节点',
             'show'   => '显示',
             'action' => '操作',
         ];
@@ -73,6 +74,7 @@ class BanController extends AdminController
                 'text'   => $rowData->text,
                 'regex'  => $rowData->regex,
                 'type'   => $rowData->type(),
+                'node_id' => $rowData->node(),
                 'show'   => $rowData->show(),
                 'action' => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
