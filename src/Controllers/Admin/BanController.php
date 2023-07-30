@@ -16,14 +16,14 @@ class BanController extends AdminController
     {
         $table_config['total_column'] = [
             
-            'id'     => 'ID',
-            'name'   => '名称',
-            'text'   => '介绍',
-            'regex'  => '正则表达式',
-            'type'   => '类型',
+            'id'      => 'ID',
+            'name'    => '名称',
+            'text'    => '介绍',
+            'regex'   => '正则表达式',
+            'type'    => '类型',
             'node_id' => '节点',
-            'show'   => '显示',
-            'action' => '操作',
+            'show'    => '显示',
+            'action'  => '操作',
         ];
         $table_config_ban_record['total_column'] = [
             'id'                => 'ID',
@@ -212,11 +212,11 @@ class BanController extends AdminController
         $id   = $request->getParsedBodyParam('id');
         $rule = DetectRule::find($id);
         return $response->withJson([
-            'name'  => $rule->name,
-            'id'    => $rule->id,
-            'text'  => $rule->text,
-            'regex' => $rule->regex,
-            'type'  => $rule->type,
+            'name'    => $rule->name,
+            'id'      => $rule->id,
+            'text'    => $rule->text,
+            'regex'   => $rule->regex,
+            'type'    => $rule->type,
             'node_id' => json_decode($rule->node_id, true),
         ]);
     }

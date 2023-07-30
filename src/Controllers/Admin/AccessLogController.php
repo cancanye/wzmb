@@ -42,12 +42,12 @@ class AccessLogController extends AdminController
 
         $data = $query['datas']->map(function($rowData) {
             return [
-                'id'    =>  $rowData->id,
-                'user'  =>  $rowData->user_email,
-                'node'  =>  $rowData->node_name,
-                'type'  =>  $rowData->type,
-                'address'   => $rowData->address,
-                'date'  => date('Y-m-d H:i:s', $rowData->created_at),
+                'id'      => $rowData->id,
+                'user'    => $rowData->user_email,
+                'node'    => $rowData->node_name,
+                'type'    => $rowData->type,
+                'address' => $rowData->address,
+                'date'    => date('Y-m-d H:i:s', $rowData->created_at),
             ];
         })->toArray();
 
