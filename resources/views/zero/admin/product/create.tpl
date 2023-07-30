@@ -82,7 +82,7 @@
                                                     <input class="form-control mb-5" id="stock" name="name" type="number" placeholder="默认为无限制" value="">
                                                     <label class="form-label required">产品流量重置周期</label>
                                                     <select class="form-select mb-5" id="reset" data-control="select2" data-hide-search="true">
-                                                        <option value="0">一次性</option>
+                                                        <option value="0" disabled>一次性</option>
                                                         <option value="1">订单日重置</option>
                                                         <option value="2">每月1日重置</option>
                                                     </select>
