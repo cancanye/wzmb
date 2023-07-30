@@ -161,9 +161,9 @@ class BanController extends AdminController
         $data = $query['datas']->map(function($rowData) {
             return [
                 'id'       => $rowData->id,
-                'user_id'  => $rowData->user_id,
-                'node_id'  => $rowData->node_id,
-                'list_id'  => $rowData->list_id,
+                'user_id'  => $rowData->user()->email,
+                'node_id'  => $rowData->nodeName(),
+                'list_id'  => $rowData->ruleName(),
                 'datetime' => date('Y-m-d H:i:s', $rowData->datetime),
             ];
         })->toArray();
