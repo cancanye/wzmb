@@ -138,7 +138,8 @@
                             <label class="fs-6 fw-semibold mb-2">
                                 <span class="required">适用节点</span>
                             </label>
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="适用节点" id="zero_create_ban_node">
+                            <select class="form-select form-select-solid" data-control="select2" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="适用节点" id="zero_create_ban_node">
+                            <option value="all">全部</option>>
                             {foreach $nodes as $node}
                                 <option value="{$node->id}">{$node->name}</option>
                             {/foreach}
@@ -208,7 +209,8 @@
                             <label class="fs-6 fw-semibold mb-2">
                                 <span class="required">适用节点</span>
                             </label>
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="适用节点" id="zero_update_ban_node">
+                            <select class="form-select form-select-solid" data-control="select2" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="适用节点" id="zero_update_ban_node">
+                            <option value="all">全部</option>>
                             {foreach $nodes as $node}
                                 <option value="{$node->id}">{$node->name}</option>
                             {/foreach}
