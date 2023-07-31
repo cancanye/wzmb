@@ -27,9 +27,9 @@
                         <div class="d-flex flex-column flex-column-fluid mt-10">
                             <div id="kt_app_content" class="app-content flex-column-fluid">
                                 <div id="kt_app_content_container" class="app-container container-xxl">
-									<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+									<div class="row g-5 g-xl-10 mb-xl-5">
 										<div class="col-xxl-6">
-											<div class="card card-flush h-md-100">
+											<div class="card card-flush">
 												<div class="card-header border-0">
 													<div class="card-title text-dark fs-3 fw-bolder">{$trans->t('product details')}</div>
 													<div class="card-toolbar">
@@ -119,7 +119,7 @@
 											</div>
 										</div>
 										<div class="col-xxl-6 mb-5">
-											<div class="card card-flush card-stretch-50 mb-5">
+											<div class="card card-flush h-200px mb-3">
 												<div class="card-body">
 													<div id="kt_carousel_3_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
 														<div class="d-flex align-items-center justify-content-between flex-wrap">
@@ -130,7 +130,7 @@
 																<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="2" class="ms-1"></li>
 															</ol>
 														</div>
-														<div class="carousel-inner pt-2 card-scroll h-100px" id="zero_show_ann">
+														<div class="carousel-inner pt-2" id="zero_show_ann">
 														{foreach $anns as $ann}
 															<div class="carousel-item">
 																{$ann->content}
@@ -140,17 +140,17 @@
 													</div>
 												</div>
 											</div>
-											<div class="card card-flush mb-3">
+											<div class="card card-flush">
 												<div class="card-header">
 													<div class="card-title  fw-bold text-dark fs-3">{$trans->t('traffic details')}</div>
 												</div>
 												<div class="card-body d-flex flex-column pt-0">
-													<div id="zero_user_traffic_chart" data-kt-chart-color="success" style="height: 175px; min-height: 130px;"></div>
+													<div id="zero_user_traffic_chart" data-kt-chart-color="success" style="height: 190px; min-height: 150px;"></div>
 												</div>
 											</div>
 										</div>                              
 									</div>
-									<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+									<div class="row g-5 g-xl-10 mb-xl-5">
 										<div class="col-xxl-8">
 										<div class="card card-flush">
 												<div class="card-header">

@@ -45,7 +45,7 @@ class AnnController extends AdminController
             return [
                 'id'      => $rowData->id,
                 'date'    => $rowData->date,
-                'content' => $rowData->content,
+                'content' => substr($rowData->content, 0, 200),
                 'action'  => <<<EOT
                                 <div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
@@ -104,7 +104,6 @@ class AnnController extends AdminController
         $html = $postdata['content'];
         $markdown = $converter->convert($html);
         Telegram::pushToChannel($markdown);
-        
         return $response->withJson([
             'ret' => 1,
             'msg' => ($issend == 1 ? '公告添加成功，邮件发送成功' : '公告添加成功'),

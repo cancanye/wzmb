@@ -115,7 +115,7 @@ class Telegram
     public static function pushToChannel($messageText): void
     {
         
-        if (Setting::obtain('enable_telegram_bot') == true) {
+        if (Setting::obtain('enable_telegram_bot')) {
             $chat_id = Setting::obtain('telegram_channel_id');
             // 发送给非群组时使用异步
             $async = ($chat_id == Setting::obtain('telegram_channel_id'));
