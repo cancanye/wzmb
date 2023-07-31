@@ -52,7 +52,6 @@ class UserController extends BaseController
             $url = 'user/tutorial/'.$opts['os'].'/'.$opts['client'].'.tpl';
             $this->view()
                 ->assign('subInfo', $sub_url)
-                ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
                 ->assign('knowledges', $knowledges)
                 ->registerClass('URL', URL::class)
                 ->display($url);
@@ -68,7 +67,6 @@ class UserController extends BaseController
             $tg_bind_token = Token::createToken($this->user, 32, 1);
         }
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->assign('bind_token', $tg_bind_token)
             ->assign('telegram_bot_id', Setting::obtain('telegram_bot_id'))
             ->registerClass('URL', URL::class)
@@ -87,7 +85,6 @@ class UserController extends BaseController
         $invite_url    = Setting::obtain('website_url') . '/signup?ref=' . $code->code;
         $this->view()
             ->assign('code', $code)
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->assign('referred_user', $referred_user)
             ->assign('referral_url', $invite_url)
             ->display('user/referral.tpl');
@@ -218,7 +215,6 @@ class UserController extends BaseController
     {
         $user = $this->user;
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->display('user/record.tpl');
         return $response;
     }
@@ -227,7 +223,6 @@ class UserController extends BaseController
     {
         $user = $this->user;
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->display('user/ban.tpl');
         return $response;
     }

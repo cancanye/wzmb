@@ -119,14 +119,6 @@
 											</div>
 										</div>
 										<div class="col-xxl-6 mb-5">
-											<div class="card card-flush mb-3">
-												<div class="card-header">
-													<div class="card-title  fw-bold text-dark fs-3">{$trans->t('traffic details')}</div>
-												</div>
-												<div class="card-body d-flex flex-column pt-0">
-													<div id="zero_user_traffic_chart" data-kt-chart-color="success" style="height: 150px; min-height: 130px;"></div>
-												</div>
-											</div>
 											<div class="card card-flush card-stretch-50 mb-5">
 												<div class="card-body">
 													<div id="kt_carousel_3_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
@@ -146,6 +138,14 @@
 														{/foreach}
 														</div>
 													</div>
+												</div>
+											</div>
+											<div class="card card-flush mb-3">
+												<div class="card-header">
+													<div class="card-title  fw-bold text-dark fs-3">{$trans->t('traffic details')}</div>
+												</div>
+												<div class="card-body d-flex flex-column pt-0">
+													<div id="zero_user_traffic_chart" data-kt-chart-color="success" style="height: 175px; min-height: 130px;"></div>
 												</div>
 											</div>
 										</div>                              
@@ -288,7 +288,7 @@
                         <h4 class="modal-title" id="exampleModalLongTitle">{$trans->t('add credit')}</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-form-label fw-bold" for="recipient-name">{$trans->t('amount')}:</label>		
+                        <label class="col-form-label fw-bold" for="add_credit_amount">{$trans->t('amount')}:</label>		
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="{$trans->t('amount')}" id="add_credit_amount">
@@ -341,6 +341,7 @@
 		</div>
 		{include file='include/global/scripts.tpl'}
 		{include file='include/index/news.tpl'}
+		<script src="/js/qrcode.min.js"></script>		
 		<script>
 			{if strtotime($user->class_expire) > time()}
 				countdown('{$user->class_expire}', 'user_class_expired_time')

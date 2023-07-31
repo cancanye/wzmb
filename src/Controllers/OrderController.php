@@ -11,7 +11,8 @@ use App\Models\{
     User,
     Payback,
     Ann,
-    Payment
+    Payment,
+    Message
 };
 use Slim\Http\Response;
 use Slim\Http\ServerRequest;
@@ -24,7 +25,6 @@ class OrderController extends BaseController
     public function order(ServerRequest $request, Response $response, array $args)
     {
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->display('user/order.tpl');
         return $response;
     }
@@ -53,7 +53,6 @@ class OrderController extends BaseController
         $paypal_currency_unit = Setting::obtain('currency_unit') ?: 'USD';
         $payments = Payment::where('enable', 1)->get();
             $this->view()
-                ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
                 ->assign('order', $order)
                 ->assign('product', $product)
                 ->assign('order_type', $order_type)
@@ -211,6 +210,7 @@ class OrderController extends BaseController
             default:
                 break;
         }
+        Message::createMessage($order->user_id, '<p>订单创建成功, 请及时支付!</p>');
         return $response->withJson([
             'ret'      => 1,
             'order_no' => $order->order_no,
@@ -299,6 +299,7 @@ class OrderController extends BaseController
             } else {
                 return self::executeProduct($order);
             }
+            Message::createMessage($order->user_id, '<p>订单完成!</p>');
         }
     }
 

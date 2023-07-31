@@ -17,6 +17,7 @@ use App\Models\Order;
 use App\Models\DetectBanLog;
 use App\Models\DetectLog;
 use App\Models\AccessLog;
+use App\Models\Message;
 use App\Services\Mail;
 use App\Utils\Tools;
 use App\Utils\Telegram;
@@ -261,7 +262,9 @@ class Job extends Command
             $user->reset_traffic_date  = NULL;
             $user->product_id          = NULL;
             $user->save();
+            Message::createMessage($user->id, '<p>您的套餐已结束!</p>');
         }
+
         echo '用户等级过期检测结束' . PHP_EOL;
         echo 'Success ' . date('Y-m-d H:i:s', time()) . PHP_EOL;
     }
@@ -273,6 +276,7 @@ class Job extends Command
         foreach ($orders as $order) {
             $order->order_status = 0;
             $order->save();
+            Message::createMessage($order->user_id, '<p>订单超时, 请重新创建订单!</p>');
         }
         echo '订单状态检测结束' . PHP_EOL;
     }

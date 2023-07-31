@@ -48,5 +48,40 @@
             });
         }
     {/if}
+
+    function zeroMarkMessageAsRead(id, all = null) {
+        if (all == null) {
+            $.ajax({
+                type: 'POST',
+                url: '/user/message/update',
+                dataType: 'json',
+                data: {
+                    id
+                },
+                success: function(data) {
+                    const num = $('#zero_unread_message_num').html() - 1;
+                    $('#zero_unread_message_num').html(num);
+                    console.log(data.msg);
+                }
+            });
+        } else {
+            $('#kt_drawer_chat_messenger_body [data-kt-card-action="remove"]').each(function() {
+                $(this).removeAttr('onclick');
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/user/message/update_all',
+                dataType: 'json',
+                data: {},
+                success: function(data) {
+                    $('#kt_drawer_chat_messenger_body [data-kt-card-action="remove"]').each(function() {
+                        $(this).click();
+                    });
+                    $('#zero_unread_message_num').html(0);
+                    console.log(data.msg);
+                }
+            });
+        }
+    }
 </script>
 {include file='live_chat.tpl'}

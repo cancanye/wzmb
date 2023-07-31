@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2023-07-25 14:04:34
+-- 生成日期： 2023-07-31 11:49:39
 -- 服务器版本： 11.0.2-MariaDB
 -- PHP 版本： 8.2.8
 
@@ -157,6 +157,21 @@ CREATE TABLE `knowledge` (
   `title` varchar(20) NOT NULL COMMENT '标题',
   `content` longtext NOT NULL COMMENT '内容',
   `created_at` int(11) NOT NULL COMMENT '创建时间',
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `message`
+--
+
+CREATE TABLE `message` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `contents` text NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -457,6 +472,20 @@ CREATE TABLE `user_invite_code` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `user_message`
+--
+
+CREATE TABLE `user_message` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `is_read` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `user_password_reset`
 --
 
@@ -478,7 +507,6 @@ CREATE TABLE `user_subscribe_log` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL COMMENT '用户 ID',
   `email` varchar(32) NOT NULL COMMENT '用户邮箱',
-  `subscribe_type` varchar(20) NOT NULL COMMENT '获取的订阅类型',
   `request_ip` varchar(39) NOT NULL COMMENT '请求 IP',
   `request_time` int(11) NOT NULL COMMENT '请求时间',
   `request_user_agent` text DEFAULT NULL COMMENT '请求 UA 信息'
@@ -592,6 +620,12 @@ ALTER TABLE `knowledge`
   ADD PRIMARY KEY (`id`);
 
 --
+-- 表的索引 `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 表的索引 `node`
 --
 ALTER TABLE `node`
@@ -679,6 +713,12 @@ ALTER TABLE `user_access`
 ALTER TABLE `user_invite_code`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- 表的索引 `user_message`
+--
+ALTER TABLE `user_message`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 表的索引 `user_password_reset`
@@ -769,6 +809,12 @@ ALTER TABLE `knowledge`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- 使用表AUTO_INCREMENT `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- 使用表AUTO_INCREMENT `node`
 --
 ALTER TABLE `node`
@@ -851,6 +897,12 @@ ALTER TABLE `user_access`
 --
 ALTER TABLE `user_invite_code`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `user_message`
+--
+ALTER TABLE `user_message`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用表AUTO_INCREMENT `user_password_reset`
