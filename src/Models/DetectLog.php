@@ -47,7 +47,7 @@ class DetectLog extends Model
     /**
      * 节点名
      */
-    public function node_name(): string
+    public function nodeName(): string
     {
         if (is_null($this->node())) {
             return '节点已不存在';
@@ -66,7 +66,7 @@ class DetectLog extends Model
     /**
      * 规则名
      */
-    public function rule_name(): string
+    public function ruleName(): string
     {
         if (is_null($this->rule())) {
             return '规则已不存在';

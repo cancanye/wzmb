@@ -27,18 +27,15 @@
                         <div class="d-flex flex-column flex-column-fluid mt-10">
                             <div id="kt_app_content" class="app-content flex-column-fluid">
                                 <div id="kt_app_content_container" class="app-container container-xxl">
-									<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+									<div class="row g-5 g-xl-10 mb-xl-10 mb-5">
 										<div class="col-xxl-6">
-											<div class="card card-flush h-md-100">
+											<div class="card card-flush">
 												<div class="card-header border-0">
 													<div class="card-title text-dark fs-3 fw-bolder">{$trans->t('product details')}</div>
-													<!--
-													{if $user->class >= 1}
-														<div class="card-toolbar">
-															<button class="btn btn-light-primary btn-sm" onclick="zeroUserRenewalProduct()">续费</button>
-														</div>
-													{/if}
-													-->
+													<div class="card-toolbar">
+														<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#zero_modal_show_subscribe_info">一键订阅</button>
+														<button class="btn btn-primary d-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#zero_canvas_show_subscribe_info">一键订阅</button>
+													</div>
 												</div>     
 												<div class="card-body pt-0">
 													<div class="d-flex align-items-center mb-9 bg-light-warning rounded p-5">
@@ -122,110 +119,38 @@
 											</div>
 										</div>
 										<div class="col-xxl-6">
-											<div class="card card-flush mb-5">
-												<div class="card-header pt-5">
-													<div class="card-title  fw-bold text-dark fs-3">{$trans->t('traffic details')}</div>
-												</div>
-												<div class="card-body d-flex flex-column pt-0">
-													<div id="zero_user_traffic_chart" data-kt-chart-color="success" style="height: 150px; min-height: 130px;"></div>
-												</div>
-											</div>
-											<div class="card card-flush">
-												<div class="card-header border-0">
-													<div class="card-title text-dark fw-bolder fs-3">														
-														{$trans->t('subscription url')}
-													</div>
-												</div>
-												<div class="card-body pt-0">
-													<div class="row">
-														<div class="col">
-															<!-- Clash订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-clash dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zero-clash text-white"></i>&nbsp;&nbsp;{$trans->t('clash')}&nbsp;&nbsp;</button>
-																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item copy-text" href="Javascript:;" data-clipboard-text="{$subInfo['clash']}">{$trans->t('copy')}</a></li>
-																	<li><hr class="dropdown-divider"></li>
-																	<li><a class="dropdown-item" href="Javascript:;" onclick="oneclickImport('clash', '{$subInfo['clash']}')">{$trans->t('import')}</a></li>
-																</ul>
+											<div class="card card-flush h-200px mb-3">
+												<div class="card-body">
+													<div id="kt_carousel_3_carousel" class="carousel carousel-custom slide" data-bs-ride="carousel" data-bs-interval="8000">
+														<div class="d-flex align-items-center justify-content-between flex-wrap">
+															<span class="fs-3 fw-bold">最新公告</span>
+															<ol class="p-0 m-0 carousel-indicators carousel-indicators-bullet carousel-indicators-active-primary">
+																<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="0" class="ms-1 active"></li>
+																<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="1" class="ms-1"></li>
+																<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="2" class="ms-1"></li>
+															</ol>
+														</div>
+														<div class="carousel-inner pt-2 scroll h-100px" id="zero_show_ann">
+														{foreach $anns as $ann}
+															<div class="carousel-item">
+																{$ann->content}
 															</div>
-															<!-- Surge订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-surge dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zero-surge text-white"></i>&nbsp;&nbsp;{$trans->t('surge')}&nbsp;&nbsp;</button>
-																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item copy-text" href="Javascript:;" data-clipboard-text="{$subInfo["surge"]}">{$trans->t('copy')}</a></li>
-																	<li><hr class="dropdown-divider"></li>
-																	<li><a class="dropdown-item" href="Javascript:;" onclick="oneclickImport('surge4', '{$subInfo['surge']}')">{$trans->t('import')}</a></li>
-																</ul>
-															</div>
-															<!-- ss订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-surfboard copy-text" data-clipboard-text="{$subInfo["shadowsocks"]}"><i class="zero-ssr text-white"></i>&nbsp;&nbsp;SS&nbsp;&nbsp;</button>
-															</div>
-															<!-- V2Ray订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-v2ray copy-text" data-clipboard-text="{$subInfo["v2rayn"]}"><i class="zero-v2rayng text-white"></i>{$trans->t('v2rayn')}</button>
-															</div>
-															<!-- Shadowrocket订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-shadowrocket dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zero-shadowrocket text-white"></i>{$trans->t('shadowrocket')}</button>
-																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item copy-text" href="Javascript:;" data-clipboard-text="{$subInfo['shadowrocket']}">{$trans->t('copy')}</a></li>
-																	<li><hr class="dropdown-divider"></li>
-																	<li><a class="dropdown-item" href="Javascript:;" onclick="oneclickImport('shadowrocket', '{$subInfo['shadowrocket']}')">{$trans->t('import')}</a></li>
-																</ul>
-															</div>
-															<!-- Quantumult订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-quantumult dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zero-quantumult text-white"></i>{$trans->t('quan')}</button>
-																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item copy-text" href="Javascript:;" data-clipboard-text="{$subInfo['quantumult']}">{$trans->t('copy')}</a></li>
-																	<li><hr class="dropdown-divider"></li>
-																	<li><a class="dropdown-item" href="Javascript:;" onclick="oneclickImport('quantumult', '{$subInfo['quantumult']}')">{$trans->t('import')}</a></li>
-																</ul>
-															</div>
-															<!-- QuantumultX订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button class="btn btn-pill btn-quantumultx dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-																	<i class="zero-quantumultx text-white"></i>
-																	{$trans->t('quanx')}
-																</button>
-																<ul class="dropdown-menu">
-																	<li>
-																		<a class="dropdown-item copy-text" type="button" data-clipboard-text="{$subInfo['quantumultx']}">{$trans->t('copy')}</a>
-																	</li>
-																	<li>
-																		<hr class="dropdown-divider">
-																	</li>
-																	<li>
-																		<a class="dropdown-item" type="button" onclick="oneclickImport('quantumultx', '{$subInfo['quantumultx']}')">{$trans->t('import')}</a>
-																	</li>
-																</ul>
-															</div>
-															<!-- Surfboard订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-surfboard dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zero-surfboard text-white"></i>{$trans->t('surfboard')}</button>
-																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item copy-text" href="Javascript:;" data-clipboard-text="{$subInfo["surfboard"]}">{$trans->t('copy')}</a></li>
-																	<li><hr class="dropdown-divider"></li>
-																	<li><a class="dropdown-item" href="Javascript:;" onclick="oneclickImport('surfboard', '{$subInfo['surfboard']}')">{$trans->t('import')}</a></li>
-																</ul>
-															</div>
-															<!-- AnXray订阅 -->
-															<div class="btn-group mb-3 mr-3">
-																<button type="button" class="btn btn-pill btn-kitsunebi dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zero-ssr text-white"></i>&nbsp;&nbsp;{$trans->t('sagernet')}&nbsp;&nbsp;</button>
-																<ul class="dropdown-menu">
-																	<li><a class="dropdown-item copy-text" href="Javascript:;" data-clipboard-text="{$subInfo["anxray"]}">{$trans->t('copy')}</a></li>
-																	<li><hr class="dropdown-divider"></li>
-																	<li><a class="dropdown-item" href="Javascript:;" onclick="oneclickImport('sagernet', '{$subInfo['anxray']}')">{$trans->t('import')}</a></li>
-																</ul>
-															</div>
+														{/foreach}
 														</div>
 													</div>
 												</div>
 											</div>
-										</div>                                   
+											<div class="card card-flush">
+												<div class="card-header">
+													<div class="card-title  fw-bold text-dark fs-3">{$trans->t('traffic details')}</div>
+												</div>
+												<div class="card-body d-flex flex-column pt-0">
+													<div id="zero_user_traffic_chart" data-kt-chart-color="success" style="height: 190px; min-height: 150px;"></div>
+												</div>
+											</div>
+										</div>                              
 									</div>
-									<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+									<div class="row g-5 g-xl-10 mb-xl-5">
 										<div class="col-xxl-8">
 										<div class="card card-flush">
 												<div class="card-header">
@@ -363,7 +288,7 @@
                         <h4 class="modal-title" id="exampleModalLongTitle">{$trans->t('add credit')}</h4>
                     </div>
                     <div class="modal-body">
-                        <label class="col-form-label fw-bold" for="recipient-name">{$trans->t('amount')}:</label>		
+                        <label class="col-form-label fw-bold" for="add_credit_amount">{$trans->t('amount')}:</label>		
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="{$trans->t('amount')}" id="add_credit_amount">
@@ -382,12 +307,60 @@
                 </div>
             </div>
         </div>
+        <!-- subscribe modal -->
+		<div class="modal fade" id="zero_modal_show_subscribe_info" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-sm">
+				<div class="modal-content shadow-lg">
+					<div class="modal-body">
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 copy-text hover-scale" data-clipboard-text="{$subInfo}">复制订阅地址</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column hover-scale mb-1" data-bs-toggle="modal" data-bs-target="#zero_modal_show_subscribe_qrcode">扫描二维码</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('shadowrocket', '{$subInfo}&flag=shadowrocket')">导入订阅Shadowrocket</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('surfboard', '{$subInfo}&flag=surfboard')">导入订阅Surfboard</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('sagernet', '{$subInfo}')">导入订阅SagerNet</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('quantumultx', '{$subInfo}')">导入订阅QuantumultX</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('surge4', '{$subInfo}')">导入订阅Surge</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('clash', '{$subInfo}&flag=clash')">导入订阅Clash</a>
+						<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('clash', '{$subInfo}&flag=meta')">导入订阅Clash Meta</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- mobile subscribe -->
+		<div class="offcanvas offcanvas-bottom" tabindex="-1" id="zero_canvas_show_subscribe_info">
+			<div class="offcanvas-body">
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 copy-text hover-scale" data-clipboard-text="{$subInfo}">复制订阅地址</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column hover-scale mb-1" data-bs-toggle="modal" data-bs-target="#zero_modal_show_subscribe_qrcode">扫描二维码</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('shadowrocket', '{$subInfo}&flag=shadowrocket')">导入订阅Shadowrocket</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('surfboard', '{$subInfo}&flag=surfboard')">导入订阅Surfboard</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('sagernet', '{$subInfo}')">导入订阅SagerNet</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('quantumultx', '{$subInfo}')">导入订阅QuantumultX</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('surge4', '{$subInfo}')">导入订阅Surge</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('clash', '{$subInfo}&flag=clash')">导入订阅Clash</a>
+				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('clash', '{$subInfo}&flag=meta')">导入订阅Clash Meta</a>
+			</div>
+		</div>
 		{include file='include/global/scripts.tpl'}
 		{include file='include/index/news.tpl'}
+		<script src="/js/qrcode.min.js"></script>		
 		<script>
 			{if strtotime($user->class_expire) > time()}
 				countdown('{$user->class_expire}', 'user_class_expired_time')
 			{/if}
+			$('#zero_show_ann div:first').addClass('active');
+			$("#zero_subscribe_qrcode").qrcode({
+				width: 200,
+				height: 200,
+				render: "canvas",
+				text: "{$subInfo}"
+			});
+			$(window).on('resize load', function() {
+				const isNarrowScreen = window.screen.width < 500;
+				const targetCanvas = $('[data-bs-target="#zero_canvas_show_subscribe_info"]');
+				const targetModal = $('[data-bs-target="#zero_modal_show_subscribe_info"]');
+			
+				targetCanvas.toggleClass('d-none', !isNarrowScreen);
+				targetModal.toggleClass('d-none', isNarrowScreen);
+			});
 		</script>							
 	</body>
 </html>

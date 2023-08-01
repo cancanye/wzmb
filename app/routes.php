@@ -19,6 +19,7 @@ use App\Controllers\Admin\PaymentController;
 use App\Controllers\Admin\KnowledgeController;
 use App\Controllers\Admin\NodeClassificationController;
 use App\Controllers\Admin\AccessLogController;
+use App\Controllers\Admin\MessageController;
 use App\Middleware\{
     Guest, 
     Admin, 
@@ -87,6 +88,10 @@ return function (SlimApp $app) {
         $group->post('/agent/withdraw_commission',          App\Zero\Agent::class . ':withdraw');
         $group->post('/agent/withdraw_account_setting',     App\Zero\Agent::class . ':withdrawAccountSettings');
         $group->post('/agent_data/process/{name}',          App\Zero\Agent::class . ':ajaxDatatableProcess');
+
+        // mark message as read 
+        $group->post('/message/update', App\Controllers\User\ReadMessageController::class . ':readMessage');
+        $group->post('/message/update_all', App\Controllers\User\ReadMessageController::class . ':readAllMessage');
     })->add(new Auth());
 
     $app->group('/payment', function (Group $group) {
@@ -266,6 +271,16 @@ return function (SlimApp $app) {
             $access->get('',                               AccessLogController::class . ':accessLogIndex');
             $access->post('/ajax',                         AccessLogController::class . ':accessLogAjax');
         });
+
+        // message
+        $group->group('/message', function($message) {
+            $message->get('',         MessageController::class . ':messageIndex');
+            $message->post('/create', MessageController::class . ':createMessage');
+            $message->put('/update',  MessageController::class. ':updateMessage');
+            $message->delete('/delete', MessageController::class. ':deleteMessage');
+            $message->post('/request', MessageController::class. ':requestMessage');
+            $message->post('/ajax', MessageController::class. ':messageAjax');
+        });
     })->add(new Admin());
 
     // webapi
@@ -280,10 +295,14 @@ return function (SlimApp $app) {
         $group->post('/nodes/config',        App\Controllers\WebAPI\NodeController::class . ':getConfig');
         $group->get('/func/ping',            App\Controllers\WebAPI\FuncController::class . ':ping');
         $group->get('/func/detect_rules',    App\Controllers\WebAPI\FuncController::class . ':getDetectLogs');
-        $group->post('/users/accesslog',      App\Controllers\WebAPI\UserController::class . ':addAccessLog');
+        $group->post('/users/accesslog',     App\Controllers\WebAPI\UserController::class . ':addAccessLog');
     })->add(new WebAPI());
 
     $app->group('/link', function (Group $group) {
         $group->get('/{token}',          App\Controllers\LinkController::class . ':GetContent');
-    });  
+    }); 
+    
+    $app->group('/api', function (Group $group) {
+        $group->get('/v1/client/subscribe', App\Controllers\SubsController::class . ':subscribe');
+    });
 };

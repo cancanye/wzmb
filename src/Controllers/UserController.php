@@ -31,12 +31,12 @@ class UserController extends BaseController
             $code = InviteCode::where('user_id', $this->user->id)->first();
         }
         $invite_url = Setting::obtain('website_url') . '/auth/signup?code=' . $code->code;
-
+        $sub_url = Setting::obtain('subscribe_address_url') . "/api/v1/client/subscribe?token={$this->user->subscription_token}";
         $this->view()
             ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->assign('invite_url', $invite_url)
             ->registerClass('URL', URL::class)
-            ->assign('subInfo', LinkController::getSubinfo($this->user, 0))
+            ->assign('subInfo', $sub_url)
             ->display('user/index.tpl');
         return $response;
     }
@@ -47,11 +47,11 @@ class UserController extends BaseController
         $opts['os']     = str_replace(' ','',$opts['os']);
         $opts['client'] = str_replace(' ','',$opts['client']);
         $knowledges = Knowledge::where('client', $opts['client'])->where('platform', $opts['os'])->get();
+        $sub_url = Setting::obtain('subscribe_address_url') . "/api/v1/client/subscribe?token={$this->user->subscription_token}";
         if ($opts['os'] != '' && $opts['client'] != '') {
             $url = 'user/tutorial/'.$opts['os'].'/'.$opts['client'].'.tpl';
             $this->view()
-                ->assign('subInfo', LinkController::getSubinfo($this->user, 0))
-                ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
+                ->assign('subInfo', $sub_url)
                 ->assign('knowledges', $knowledges)
                 ->registerClass('URL', URL::class)
                 ->display($url);
@@ -67,7 +67,6 @@ class UserController extends BaseController
             $tg_bind_token = Token::createToken($this->user, 32, 1);
         }
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->assign('bind_token', $tg_bind_token)
             ->assign('telegram_bot_id', Setting::obtain('telegram_bot_id'))
             ->registerClass('URL', URL::class)
@@ -86,7 +85,6 @@ class UserController extends BaseController
         $invite_url    = Setting::obtain('website_url') . '/signup?ref=' . $code->code;
         $this->view()
             ->assign('code', $code)
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->assign('referred_user', $referred_user)
             ->assign('referral_url', $invite_url)
             ->display('user/referral.tpl');
@@ -217,7 +215,6 @@ class UserController extends BaseController
     {
         $user = $this->user;
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->display('user/record.tpl');
         return $response;
     }
@@ -226,7 +223,6 @@ class UserController extends BaseController
     {
         $user = $this->user;
         $this->view()
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->display('user/ban.tpl');
         return $response;
     }

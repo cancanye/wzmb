@@ -24,7 +24,7 @@ class NodeController extends UserController
         //$user_group = ($user->node_group != 0 ? [0, $user->node_group] : [0]);
         if (!$user->is_admin) {
             $servers = Node::where('status' ,1)
-            ->whereJsonContains('node_group', ["$user->node_group"])
+            ->whereJsonContains('node_group', "$user->node_group")
             ->orderBy('name', 'asc')
             ->get();
         } else if ($user->is_admin) {
@@ -50,7 +50,6 @@ class NodeController extends UserController
             ->assign('firstShow', $firstShow)
             ->assign('servers', $servers)
             ->assign('min_node_class', $min_node_class)
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->registerClass('URL', URL::class)
             ->display('user/node.tpl');
         return $response;

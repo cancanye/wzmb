@@ -209,7 +209,6 @@ class NodeController extends AdminController
         );
 
         $data = $query['datas']->map(function($rowData) {
-            $type = "'node'";
             return [
                 'id'              => $rowData->id,
                 'online'          => $rowData->online == 1 ? '<span class="badge badge-circle badge-success badge-sm"></span>' : '<span class="badge badge-circle badge-danger badge-sm"></span>',
@@ -225,7 +224,7 @@ class NodeController extends AdminController
                 'action'          => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
                                     <li><a class = "dropdown-item" href = "node/update/'.$rowData->id.'">编辑</a></li>
-                                    <li><a class = "dropdown-item" type = "button" onclick = "zeroAdminDelete('.$type.', '.$rowData->id.')">删除</a></li>
+                                    <li><a class = "dropdown-item" type = "button" onclick = "zeroAdminDelete(\'node\', '.$rowData->id.')">删除</a></li>
                                     </ul>
                                 </div>',
             ];

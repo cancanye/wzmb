@@ -16,8 +16,8 @@ class FuncController extends BaseController
     {
         $getData = $request->getQueryParams();
         $node_id = $getData['node_id'];
-
-        $rules = DetectRule::whereJsonContains('node_id', ["$node_id"])->get();
+        $rules = DetectRule::all();
+        $rules = DetectRule::orWhereJsonContains('node_id', "$node_id")->orWhereJsonContains('node_id', 'all')->get();
         return $response->withJson([
             'ret' => 1,
             'data' => $rules,

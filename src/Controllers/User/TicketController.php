@@ -36,7 +36,7 @@ class TicketController extends UserController
 
         $this->view()
             ->assign('tickets', $tickets)
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
+
             ->display('user/ticket/ticket.tpl');
         return $response;
     }
@@ -175,7 +175,6 @@ class TicketController extends UserController
         $this->view()
             ->assign('ticket', $ticket)
             ->assign('comments', $comments)
-            ->assign('anns', Ann::where('date', '>=', date('Y-m-d H:i:s', time() - 7 * 86400))->orderBy('date', 'desc')->get())
             ->display('user/ticket/view.tpl');
         return $response;  
     }

@@ -74,7 +74,7 @@
                                                         <span class="input-group-text">GB</span>
                                                     </div>
                                                     <label class="form-label required">产品等级</label>
-                                                    <input class="form-control mb-5" data-bs-toggle="tooltip" title="默认为0" id="class" name="class" type="number" placeholder="产品等级" value="0">
+                                                    <input class="form-control mb-5" data-bs-toggle="tooltip" title="默认为0" id="class" name="class" type="number" placeholder="产品等级" value="1">
                                                     
                                                 </div>
                                                 <div class="col-xxl-6">
@@ -82,7 +82,7 @@
                                                     <input class="form-control mb-5" id="stock" name="name" type="number" placeholder="默认为无限制" value="">
                                                     <label class="form-label required">产品流量重置周期</label>
                                                     <select class="form-select mb-5" id="reset" data-control="select2" data-hide-search="true">
-                                                        <option value="0">一次性</option>
+                                                        <option value="0" disabled>一次性</option>
                                                         <option value="1">订单日重置</option>
                                                         <option value="2">每月1日重置</option>
                                                     </select>
@@ -171,6 +171,20 @@
                     }
                 })
             }
+        </script>
+        <script>           
+            $('#type').on('change', function() {
+                const product_type_value = $(this).val();
+                const classElement = $('#class');
+                const resetElement = $('#reset');
+                const isProductTypeOne = product_type_value == 1;
+                classElement.val(isProductTypeOne ? '1' : '0');
+                classElement.prop('disabled', !isProductTypeOne);
+                resetElement.val(isProductTypeOne ? '1' : '0').trigger('change');
+                resetElement.children().each(function(index) {
+                    $(this).prop('disabled', isProductTypeOne ? (index == 0) : (index != 0));
+                });
+            });
         </script>
     </body>
 </html>

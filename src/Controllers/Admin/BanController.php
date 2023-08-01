@@ -16,13 +16,14 @@ class BanController extends AdminController
     {
         $table_config['total_column'] = [
             
-            'id'     => 'ID',
-            'name'   => '名称',
-            'text'   => '介绍',
-            'regex'  => '正则表达式',
-            'type'   => '类型',
-            'show'   => '显示',
-            'action' => '操作',
+            'id'      => 'ID',
+            'name'    => '名称',
+            'text'    => '介绍',
+            'regex'   => '正则表达式',
+            'type'    => '类型',
+            'node_id' => '节点',
+            'show'    => '显示',
+            'action'  => '操作',
         ];
         $table_config_ban_record['total_column'] = [
             'id'                => 'ID',
@@ -65,21 +66,22 @@ class BanController extends AdminController
         );
 
         $data = $query['datas']->map(function($rowData) {
-            $type_1 = "'request'";
-            $type_2 = "'ban_rule'";
             return [
                 'id'     => $rowData->id,
                 'name'   => $rowData->name,
                 'text'   => $rowData->text,
                 'regex'  => $rowData->regex,
                 'type'   => $rowData->type(),
+                'node_id' => $rowData->node(),
                 'show'   => $rowData->show(),
-                'action' => '<div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
+                'action' => <<<EOT
+                                <div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
-                                    <li><a class = "dropdown-item" onclick = "zeroAdminUpdateBanRule('.$type_1.', '.$rowData->id.')">编辑</a></li>
-                                    <li><a class = "dropdown-item" type    = "button" onclick = "zeroAdminDelete('.$type_2.', '.$rowData->id.')">删除</a></li>
+                                    <li><a class = "dropdown-item" onclick = "zeroAdminUpdateBanRule('request', {$rowData->id})">编辑</a></li>
+                                    <li><a class = "dropdown-item" type    = "button" onclick = "zeroAdminDelete('ban/rule', {$rowData->id})">删除</a></li>
                                     </ul>
-                                </div>',
+                                </div>
+                            EOT,
             ];
         })->toArray();
 
@@ -159,9 +161,9 @@ class BanController extends AdminController
         $data = $query['datas']->map(function($rowData) {
             return [
                 'id'       => $rowData->id,
-                'user_id'  => $rowData->user_id,
-                'node_id'  => $rowData->node_id,
-                'list_id'  => $rowData->list_id,
+                'user_id'  => $rowData->user()->email,
+                'node_id'  => $rowData->nodeName(),
+                'list_id'  => $rowData->ruleName(),
                 'datetime' => date('Y-m-d H:i:s', $rowData->datetime),
             ];
         })->toArray();
@@ -210,11 +212,11 @@ class BanController extends AdminController
         $id   = $request->getParsedBodyParam('id');
         $rule = DetectRule::find($id);
         return $response->withJson([
-            'name'  => $rule->name,
-            'id'    => $rule->id,
-            'text'  => $rule->text,
-            'regex' => $rule->regex,
-            'type'  => $rule->type,
+            'name'    => $rule->name,
+            'id'      => $rule->id,
+            'text'    => $rule->text,
+            'regex'   => $rule->regex,
+            'type'    => $rule->type,
             'node_id' => json_decode($rule->node_id, true),
         ]);
     }
