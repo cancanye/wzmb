@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\AdminController;
 use App\Models\Message;
 use App\Models\User;
+use App\Models\Setting;
 use Slim\Http\Response;
 use Slim\Http\ServerRequest;
 
@@ -23,9 +24,11 @@ class MessageController extends AdminController
         
         $table_config['ajax_url'] = 'message/ajax';
         $messageUsers = User::all();
+        $userGroups = json_decode(Setting::obtain('user_group_detail'), true);
         $this->view()
             ->assign('table_config', $table_config)
             ->assign('messageUsers', $messageUsers)
+            ->assign('userGroups', $userGroups)
             ->display('admin/message.tpl');
         return $response;
     }
@@ -34,6 +37,9 @@ class MessageController extends AdminController
     {
         $contents = $request->getParsedBodyParam('contents');
         $user_ids = $request->getParsedBodyParam('user_id');
+        if (strpos($user_ids[0], 'group-') !== false) {
+            $user_ids = User::where('node_group', substr($user_ids[0], 6))->pluck('id')->toArray();
+        }
         foreach ($user_ids as $user_id) {
             $message = new Message();
             $message->contents = $contents;

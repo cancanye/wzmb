@@ -31,7 +31,6 @@ class View
             ->where('updated_at', '>', time() - (86400*30))
             ->orderBy('updated_at', 'desc')
             ->get();
-        //$unreadMessageNum = 
 
         $smarty->settemplatedir(BASE_PATH . '/resources/views/' . $theme . '/'); //设置模板文件存放目录
         $smarty->setcompiledir(BASE_PATH . '/storage/framework/smarty/compile/'); //设置生成文件存放目录

@@ -73,6 +73,9 @@
                                 <span class="required">指定用户</span>
                             </label>
                             <select class="form-select form-select-solid" data-control="select2" data-close-on-select="true" data-allow-clear="true" multiple="multiple" data-placeholder="指定用户" id="zero_create_message_user_id">
+                                {foreach $userGroups as $value => $name}
+                                    <option value="group-{$value}">{$name}</option>
+                                {/foreach}
                                 {foreach $messageUsers as $messageUser}
                                     <option value="{$messageUser->id}">{$messageUser->email}</option>
                                 {/foreach}
