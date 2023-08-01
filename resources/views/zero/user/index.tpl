@@ -133,7 +133,7 @@
 														<div class="carousel-inner pt-2" id="zero_show_ann">
 														{foreach $anns as $ann}
 															<div class="carousel-item">
-																{$ann->content}
+																{mb_substr($ann->content, 0, 200)}
 															</div>
 														{/foreach}
 														</div>

@@ -45,7 +45,7 @@ class AnnController extends AdminController
             return [
                 'id'      => $rowData->id,
                 'date'    => $rowData->date,
-                'content' => substr($rowData->content, 0, 200),
+                'content' => mb_substr($rowData->content, 0, 200),
                 'action'  => <<<EOT
                                 <div class="btn-group dropstart"><a class="btn btn-light-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">操作</a>
                                     <ul    class = "dropdown-menu">
