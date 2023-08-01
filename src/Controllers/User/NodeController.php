@@ -24,7 +24,7 @@ class NodeController extends UserController
         //$user_group = ($user->node_group != 0 ? [0, $user->node_group] : [0]);
         if (!$user->is_admin) {
             $servers = Node::where('status' ,1)
-            ->whereJsonContains('node_group', ["$user->node_group"])
+            ->whereJsonContains('node_group', "$user->node_group")
             ->orderBy('name', 'asc')
             ->get();
         } else if ($user->is_admin) {
