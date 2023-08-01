@@ -294,12 +294,12 @@ class OrderController extends BaseController
     {
         $order = Order::where('order_no', $order_no)->first();
         if (!$order->execute_status) {
+            Message::createMessage($order->user_id, '<p>订单支付完成!</p>');
             if (is_null($order->product_id) && $order->order_type === 2) {
                 return self::executeAddCredit($order);
             } else {
                 return self::executeProduct($order);
             }
-            Message::createMessage($order->user_id, '<p>订单完成!</p>');
         }
     }
 

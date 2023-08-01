@@ -15,8 +15,7 @@ class NodeService
     {
         $query = Node::query();
         if (!$user->is_admin) {
-            $group = ($user->node_group != 0 ? [0, $user->node_group] : [0]);
-            $query->whereIn('node_group', $group)
+            $query->whereJsonContains('node_group', ["$user->node_group"])
                 ->where('node_class', '<=', $user->class);
         }
         $nodes = $query->where('status', '1')->orderBy('node_sort', 'desc')->orderBy('name')->get();
@@ -43,12 +42,23 @@ class NodeService
             $expire_date = substr($user->class_expire, 0, 10);
             $extend_node_1 = [
                 'remark' => "剩余流量:{$remaining_traffic}",
-                'address' => Setting::obtain('website_url')
+                'address' => Setting::obtain('website_url'),
+                'port'  => 10000
             ];
             $extend_node_2 = [
                 'remark' => "到期时间:{$expire_date}",
-                'address' => Setting::obtain('website_url')
+                'address' => Setting::obtain('website_url'),
+                'port'  => 10000
             ];
+
+            if (Setting::obtain('subscribe_diy_message')) {
+                $extend_node_3 = [
+                    'remark' => Setting::obtain('subscribe_diy_message'),
+                    'address' => Setting::obtain('website_url'),
+                    'port'  => 10000
+                ];
+                array_unshift($servers, array_merge($servers[0], $extend_node_3));
+            }
             array_unshift($servers, array_merge($servers[0], $extend_node_1));
             array_unshift($servers, array_merge($servers[0], $extend_node_2));
         }

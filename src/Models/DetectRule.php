@@ -41,10 +41,15 @@ class DetectRule extends Model
     public function node(): array
     {
         $node_ids = json_decode($this->node_id, true);
-        $node_id = [];
+        $node_name = [];
         foreach ($node_ids as $value) {
-            $node_id[] = $value;
+            $node = Node::find($value);
+            if (!is_null($node)){
+                $node_name[] = $node->name;
+            } else {
+                $node_name[] = '全部';
+            }
         }
-        return $node_id;
+        return $node_name;
     }
 }
