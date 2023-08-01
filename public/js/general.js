@@ -571,8 +571,8 @@ function oneclickImport(client, subLink) {
         title: i18next.t('confirm importing subscription link'),
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Submit",
-        cancelButtonText: "Discard",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
         focusClose: false,
         focusConfirm: false,
     }).then((result) => {

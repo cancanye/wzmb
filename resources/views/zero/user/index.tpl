@@ -130,10 +130,10 @@
 																<li data-bs-target="#kt_carousel_3_carousel" data-bs-slide-to="2" class="ms-1"></li>
 															</ol>
 														</div>
-														<div class="carousel-inner pt-2" id="zero_show_ann">
+														<div class="carousel-inner pt-2 scroll h-100px" id="zero_show_ann">
 														{foreach $anns as $ann}
 															<div class="carousel-item">
-																{mb_substr($ann->content, 0, 200)}
+																{$ann->content}
 															</div>
 														{/foreach}
 														</div>
