@@ -339,6 +339,18 @@
 				<a class="btn btn-outline btn-active-secondary d-flex flex-column mb-1 hover-scale" onclick="oneclickImport('clash', '{$subInfo}&flag=meta')">导入订阅Clash Meta</a>
 			</div>
 		</div>
+	    <!-- qr modal -->
+		<div class="modal fade" id="zero_modal_show_subscribe_qrcode" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-sm">
+				<div class="modal-content shadow-lg">
+					<div class="modal-body">
+						<div class="mb-3 text-center" id="zero_subscribe_qrcode">
+						</div>
+						<div class="fs-5 text-center text-dark">请用支持的客户端扫码订阅</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		{include file='include/global/scripts.tpl'}
 		{include file='include/index/news.tpl'}
 		<script src="/js/qrcode.min.js"></script>		
