@@ -41,7 +41,7 @@ class RecordController extends AdminController
         $table_config_subscribe['total_column'] = [
             'id'                  => 'ID',
             'user_id'             => '用户',
-            'subscribe_type'      => '类型',
+            'request_user_agent'      => '类型',
             'request_ip'          => 'IP',
             'location'            => '归属地',
             'request_time'        => '时间',
@@ -138,7 +138,7 @@ class RecordController extends AdminController
                     return [
                         'id'             => $rowData->id,
                         'user_id'        => User::userEmail($rowData->user_id),
-                        'subscribe_type' => $rowData->subscribe_type,
+                        'request_user_agent' => substr($rowData->request_user_agent,0, 50),
                         'request_ip'     => $rowData->request_ip,
                         'location'       => Tools::getIPLocation($rowData->request_ip),
                         'request_time'   => date('Y-m-d H:i:s', $rowData->request_time),
