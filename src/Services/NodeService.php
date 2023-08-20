@@ -32,8 +32,9 @@ class NodeService
         $servers = [];
         foreach ($nodes as $node) {
             $configMethod = $configMethodLookup[$node->node_type] ?? null;
+            $custom_config = $node->activeCustomConfig();
             if ($configMethod && method_exists($node, $configMethod)) {
-                $servers[] = $node->$configMethod($user, $node->custom_config, $emoji);
+                $servers[] = $node->$configMethod($user, $custom_config, $emoji);
             }
         }
 
